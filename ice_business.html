@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMT300 Craft Ice Business Financial Model (Dual Mode)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <style>
+        /* Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        /* Custom Tailwind component styles */
+        .input-label { @apply block text-sm font-medium text-gray-700 mb-1; }
+        .input-field { @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm; }
+        .input-select { @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white py-2 px-3; }
+        .output-label { @apply text-sm font-medium text-gray-500; }
+        .output-value { @apply mt-1 text-lg font-semibold text-gray-900; }
+        .output-value-profit { @apply mt-1 text-lg font-semibold text-green-700; }
+        .output-value-loss { @apply mt-1 text-lg font-semibold text-red-700; }
+        .radio-label { @apply ml-2 block text-sm text-gray-900; }
+        /* ## Chart container height slightly reduced ## */
+        .chart-container { 
+            @apply bg-white p-4 rounded-lg shadow border border-gray-100 mt-6;
+            position: relative;
+            min-height: 300px;
+            height: 40vh;
+            max-height: 500px;
+        }
+        .help-text { @apply text-xs text-gray-500; }
+        .warning-text { @apply text-xs font-semibold text-red-600; }
+
+        /* Slider thumb styling */
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #4f46e5; cursor: pointer; border-radius: 50%;
+        }
+        input[type=range]::-moz-range-thumb {
+          width: 20px; height: 20px; background: #4f46e5; cursor: pointer; border-radius: 50%; border: none;
+        }
+        /* Class to hide elements */
+        .hidden-smooth { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">IMT300 Craft Ice Business Financial Model</h1>
+        <p class="text-center text-gray-600 mb-6">Select mode, ice shape, adjust inputs based on IMT300 specs, and view the financial summary and charts below. Costs are estimates.</p>
+
+        <div class="mb-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+            <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Select Calculation Mode</h2>
+            <div class="flex justify-center space-x-6">
+                <div class="flex items-center">
+                    <input id="modeMachines" name="calcMode" type="radio" value="machines" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="modeMachines" class="radio-label">Scale by Number of Machines</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="modeDemand" name="calcMode" type="radio" value="demand" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="modeDemand" class="radio-label">Scale by Monthly Demand (Units)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Core Inputs</h2>
+                <div id="inputNumMachinesContainer">
+                    <label for="numMachines" class="input-label">Number of Ice Machines</label>
+                    <input type="range" id="numMachines" min="1" max="50" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700 input-field">
+                    <span id="numMachinesValue" class="text-sm text-indigo-600 font-medium">1</span>
+                </div>
+                <div id="inputDemandContainer" class="hidden-smooth">
+                    <label for="targetMonthlyDemand" class="input-label">Target Monthly Demand (Units)</label>
+                    <input type="number" id="targetMonthlyDemand" value="100800" step="1000" min="0" class="input-field">
+                    <p class="help-text mt-1">Model will calculate required machines.</p>
+                    <p id="calculatedMachinesText" class="text-sm text-indigo-600 font-medium mt-1"></p>
+                </div>
+                <hr>
+                 <div>
+                    <label for="iceShape" class="input-label">Ice Shape (IMT300 Capacity)</label>
+                    <select id="iceShape" class="input-select">
+                        <option value="cube" data-capacity="120">Cube 55mm (120/cycle)</option>
+                        <option value="sphere_small" data-capacity="100">Sphere 60mm (100/cycle)</option>
+                        <option value="sphere_large" data-capacity="64">Sphere 75mm (64/cycle)</option>
+                        <option value="bar" data-capacity="96">Collins Bar (96/cycle)</option>
+                        <option value="diamond" data-capacity="120">Diamond (120/cycle)</option>
+                    </select>
+                 </div>
+                 <div>
+                    <label for="sellingPrice" class="input-label">Selling Price per Ice Unit ($)</label>
+                    <input type="number" id="sellingPrice" value="0.99" step="0.01" min="0" class="input-field">
+                </div>
+                 <div>
+                    <label for="daysOperating" class="input-label">Days Operating per Month</label>
+                    <input type="number" id="daysOperating" value="30" step="1" min="1" max="31" class="input-field">
+                </div>
+                 <div>
+                    <label for="laborHoursPerDay" class="input-label">Total Daily Labor Hours Needed</label>
+                    <input type="number" id="laborHoursPerDay" value="24" step="0.5" min="0" class="input-field">
+                    <span class="help-text">Incl. harvesting, bagging, cleaning per cycle, sales etc.</span>
+                 </div>
+                 <div>
+                    <label for="laborCostPerHour" class="input-label">Labor Cost per Hour ($)</label>
+                    <input type="number" id="laborCostPerHour" value="18.00" step="0.50" min="0" class="input-field">
+                </div>
+            </div>
+
+            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Machine & Variable Costs</h2>
+                 <div>
+                    <label for="machineCost" class="input-label">Cost per IMT300 Machine ($)</label>
+                    <input type="number" id="machineCost" value="5000" step="100" min="0" class="input-field">
+                    <span class="warning-text">Verify actual IMT300 price! Estimate used.</span>
+                 </div>
+                 <div>
+                    <label for="cycleTime" class="input-label">Ice Making Cycle Time (hours)</label>
+                    <input type="number" id="cycleTime" value="24" step="0.5" min="1" class="input-field">
+                    <span class="help-text">IMT300: 24-28h (&lt;25°C), 32-36h (&gt;25°C)</span>
+                 </div>
+                 <div>
+                    <label for="waterPerCycle" class="input-label">Water Use per Cycle (Gallons)</label>
+                    <input type="number" id="waterPerCycle" value="7.9" step="0.1" min="0" class="input-field">
+                    <span class="help-text">IMT300 Manual: 30 Liters ≈ 7.9 Gal</span>
+                 </div>
+                 <div>
+                    <label for="waterRate" class="input-label">Water Rate ($/Gallon)</label>
+                    <input type="number" id="waterRate" value="0.012" step="0.001" min="0" class="input-field">
+                    <span class="help-text">Est. Livonia, MI rate (incl. sewer) - verify locally.</span>
+                 </div>
+                 <hr>
+                 <div>
+                    <label for="iceMakingPower" class="input-label">Ice Making Power (Watts)</label>
+                    <input type="number" id="iceMakingPower" value="600" step="10" min="0" class="input-field">
+                    <span class="help-text">Avg. power during making phase. (IMT300 Manual: 600W @ 110-120V).</span>
+                 </div>
+                 <div>
+                    <label for="iceDetachingPower" class="input-label">Ice Detaching Power (Watts)</label>
+                    <input type="number" id="iceDetachingPower" value="1200" step="10" min="0" class="input-field">
+                    <span class="help-text">Avg. power during detaching phase. (IMT300 Manual: 1200W @ 110-120V).</span>
+                 </div>
+                 <div>
+                    <label for="detachingDuration" class="input-label">Detaching Phase Duration (hours per cycle)</label>
+                    <input type="number" id="detachingDuration" value="1" step="0.1" min="0.1" class="input-field">
+                    <span class="help-text">Estimate - adjust as needed.</span>
+                 </div>
+                 <p class="help-text mt-1">Note: Specs list 2800W total power, likely peak. This model uses making/detaching phases for average energy calculation.</p>
+                 <div>
+                    <label for="electricityRate" class="input-label">Electricity Rate ($/kWh)</label>
+                    <input type="number" id="electricityRate" value="0.16" step="0.01" min="0" class="input-field">
+                    <span class="help-text">Est. Livonia, MI commercial rate - verify locally.</span>
+                 </div>
+                 <hr>
+                 <div>
+                    <label for="packagingCostUnit" class="input-label">Packaging Cost per Ice Unit ($)</label>
+                    <input type="number" id="packagingCostUnit" value="0.05" step="0.01" min="0" class="input-field">
+                 </div>
+            </div>
+
+            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Fixed Costs & Financing</h2>
+                 <div>
+                    <label for="monthlyMaintenancePerMachine" class="input-label">Monthly Maintenance per Machine ($)</label>
+                    <input type="number" id="monthlyMaintenancePerMachine" value="50" step="5" min="0" class="input-field">
+                    <span class="help-text">Estimate - may be higher for IMT300.</span>
+                 </div>
+                 <div>
+                    <label for="monthlyRent" class="input-label">Monthly Rent / Overhead ($)</label>
+                    <input type="number" id="monthlyRent" value="0" step="5000" min="0" class="input-field">
+                 </div>
+                 <div>
+                    <label for="monthlyInsurance" class="input-label">Monthly Insurance ($)</label>
+                    <input type="number" id="monthlyInsurance" value="500" step="10" min="0" class="input-field">
+                 </div>
+                 <hr class="my-4">
+                 <h3 class="text-md font-semibold text-gray-600">Device Financing</h3>
+                 <div>
+                    <label for="downPaymentPercent" class="input-label">Down Payment (%)</label>
+                    <input type="number" id="downPaymentPercent" value="10" step="1" min="0" max="100" class="input-field">
+                 </div>
+                 <div>
+                    <label for="loanTermYears" class="input-label">Loan Term (Years)</label>
+                    <input type="number" id="loanTermYears" value="4" step="1" min="1" class="input-field">
+                 </div>
+                 <div>
+                    <label for="interestRate" class="input-label">Annual Interest Rate (APR %)</label>
+                    <input type="number" id="interestRate" value="8.0" step="0.1" min="0" class="input-field">
+                 </div>
+            </div>
+        </div>
+
+        <div class="mt-10 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-6 rounded-lg shadow-md border border-indigo-200">
+             <h2 class="text-xl font-bold text-indigo-800 mb-6 text-center">Financial Summary & Key Metrics</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Revenue & Profit</h3>
+                     <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
+                     <div id="displayProductionRate" class="mb-2 text-sm text-gray-600"></div>
+                     <div>
+                         <span class="output-label">Total Monthly Revenue</span>
+                         <p id="totalMonthlyRevenue" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Monthly Gross Profit (before financing)</span>
+                         <p id="monthlyGrossProfit" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Monthly Net Profit</span>
+                         <p id="monthlyNetProfit" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Annual Net Profit</span>
+                         <p id="annualNetProfit" class="output-value">$0.00</p>
+                     </div>
+                 </div>
+
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Monthly Costs Breakdown</h3>
+                     <div>
+                         <span class="output-label">Variable Costs (Energy, Water, Pack)</span>
+                         <p id="totalMonthlyVariableCosts" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Labor Cost</span>
+                         <p id="totalMonthlyLaborCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Fixed Costs (Rent, Ins, Maint)</span>
+                         <p id="totalMonthlyFixedCosts" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Loan Payment</span>
+                         <p id="monthlyLoanPayment" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2 border-t pt-2">
+                         <span class="output-label font-bold">Total Monthly Costs</span>
+                         <p id="totalMonthlyCosts" class="output-value font-bold">$0.00</p>
+                     </div>
+                 </div>
+
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Key Metrics</h3>
+                     <div>
+                         <span class="output-label">Variable Cost per Ice Unit</span>
+                         <p id="variableCostPerUnit" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Total Cost per Ice Unit (Approx)</span>
+                         <p id="totalCostPerUnit" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Net Profit Margin</span>
+                         <p id="netProfitMargin" class="output-value">0.00%</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Break-Even Units per Month</span>
+                         <p id="breakEvenUnits" class="output-value">0</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Break-Even Revenue per Month</span>
+                         <p id="breakEvenRevenue" class="output-value">$0.00</p>
+                     </div>
+                 </div>
+
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Investment & Return</h3>
+                     <div>
+                         <span class="output-label">Total Equipment Cost</span>
+                         <p id="totalEquipmentCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Initial Down Payment</span>
+                         <p id="initialDownPayment" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Total Amount Financed</span>
+                         <p id="totalLoanAmount" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Simple Payback Period (Years)</span>
+                         <p id="paybackPeriod" class="output-value">N/A</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Annual ROI (on Equipment Cost)</span>
+                         <p id="annualROI" class="output-value">N/A</p>
+                     </div>
+                 </div>
+             </div>
+             <div class="mt-6 text-center text-sm text-gray-600">
+                 <p><strong class="font-semibold text-indigo-700">Cash Flow Note:</strong> To stay cash flow positive early, ensure your 'Monthly Gross Profit (before financing)' significantly exceeds the 'Monthly Loan Payment'. See chart below for trends.</p>
+             </div>
+        </div>
+
+        <div class="mt-10">
+            <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Visualization</h2>
+            <div class="mb-2">
+                <div class="flex items-center justify-center mt-2">
+                    <input id="lockYAxis" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="lockYAxis" class="ml-2 text-sm text-gray-700">Lock Y-Axis Scale</label>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-4 justify-center mt-4">
+                <div class="flex items-center">
+                    <input id="showRevenue" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="0">
+                    <label for="showRevenue" class="ml-2 text-sm text-gray-700">Revenue</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="showCosts" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="1">
+                    <label for="showCosts" class="ml-2 text-sm text-gray-700">Total Costs</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="showProfit" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="2">
+                    <label for="showProfit" class="ml-2 text-sm text-gray-700">Net Profit</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="showBreakEven" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="3">
+                    <label for="showBreakEven" class="ml-2 text-sm text-gray-700">Break-Even Point</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="showMargin" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="4">
+                    <label for="showMargin" class="ml-2 text-sm text-gray-700">Profit Margin (%)</label>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Revenue, Costs & Net Profit</h3>
+                    <canvas id="monthlyCashFlowChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Cost Breakdown</h3>
+                    <canvas id="costBreakdownChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Production Volume</h3>
+                    <canvas id="productionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Chart Instances ---
+        let monthlyCashFlowChartInstance = null;
+        let costBreakdownChartInstance = null;
+        let productionChartInstance = null;
+        
+        // --- Y-Axis Scale Locking Variables ---
+        let lockYAxisScale = false;
+        let lockedYMax = 0;
+
+        // --- Helper Functions --- (Unchanged)
+        const $ = (selector) => document.getElementById(selector);
+        const formatCurrency = (value) => isNaN(value) ? '$0.00' : value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const formatPercent = (value) => isNaN(value) ? '0.00%' : (value * 100).toFixed(2) + '%';
+        const formatNumber = (value, decimals = 0) => isNaN(value) ? '0' : value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+        // --- PMT Function --- (Unchanged)
+        function calculatePMT(rate, nper, pv) {
+            if (rate === 0) return pv === 0 ? 0 : Math.abs(pv) / nper;
+            if (nper === 0) return 0;
+            if (pv === 0) return 0;
+            const pvif = Math.pow(1 + rate, nper);
+            if (pvif === 1) return Math.abs(pv) / nper;
+            return rate * Math.abs(pv) / (1 - Math.pow(1 + rate, -nper));
+        }
+
+        // --- Chart Initialization Function ---
+        function initializeNewCharts() {
+            // Initialize main cash flow chart
+            const monthlyCtx = $('monthlyCashFlowChart').getContext('2d');
+            monthlyCashFlowChartInstance = new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { 
+                            label: 'Monthly Revenue', 
+                            data: [], 
+                            borderColor: 'rgb(54, 162, 235)', 
+                            tension: 0.1 
+                        },
+                        { 
+                            label: 'Total Monthly Costs', 
+                            data: [], 
+                            borderColor: 'rgb(255, 99, 132)', 
+                            tension: 0.1 
+                        },
+                        { 
+                            label: 'Monthly Net Profit', 
+                            data: [], 
+                            borderColor: 'rgb(75, 192, 192)', 
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)', 
+                            tension: 0.1, 
+                            fill: true 
+                        },
+                        {
+                            label: 'Break-Even Point',
+                            data: [],
+                            borderColor: 'rgba(255, 159, 64, 0.8)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Net Profit Margin (%)',
+                            data: [],
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Month' } },
+                        y: {
+                            position: 'left',
+                            title: { display: true, text: 'Amount ($)' },
+                            ticks: { callback: value => formatCurrency(value) }
+                            // suggestedMax and suggestedMin will be set dynamically in updateNewCharts
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Profit Margin (%)' },
+                            min: -50,
+                            max: 100,
+                            grid: { drawOnChartArea: false },
+                            ticks: { callback: value => `${value}%` }
+                        }
+                    },
+                    plugins: {
+                        tooltip: { 
+                            callbacks: { 
+                                label: (context) => {
+                                    if (context.dataset.yAxisID === 'y1') {
+                                        return `${context.dataset.label}: ${context.parsed.y}%`;
+                                    }
+                                    return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                } 
+                            } 
+                        },
+                        annotation: {
+                            annotations: {
+                                loanCompletionLine: {
+                                    type: 'line',
+                                    xMin: 0,
+                                    xMax: 0,
+                                    borderColor: 'green',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Loan Paid Off',
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Initialize cost breakdown chart
+            const costBreakdownCtx = $('costBreakdownChart').getContext('2d');
+            costBreakdownChartInstance = new Chart(costBreakdownCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Variable Costs', 'Labor', 'Fixed Costs', 'Financing'],
+                    datasets: [{
+                        data: [0, 0, 0, 0],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const label = context.label || '';
+                                    const value = formatCurrency(context.raw || 0);
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((context.raw / total) * 100).toFixed(1) + '%' : '0%';
+                                    return `${label}: ${value} (${percentage})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Initialize production volume chart
+            const productionCtx = $('productionChart').getContext('2d');
+            productionChartInstance = new Chart(productionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Production Volume',
+                        data: [],
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Units Produced' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Chart Update Function ---
+        function updateNewCharts(chartData) {
+            const {
+                totalMonthlyUnitProduction,
+                sellingPrice,
+                variableCostPerUnit,
+                totalMonthlyLaborCost,
+                totalMonthlyFixedCosts, // Rent + Ins + Maint
+                monthlyLoanPayment,
+                breakEvenRevenue,
+                totalMonthlyVariableCosts,
+                loanTermMonths
+            } = chartData;
+
+            const chartDurationMonths = Math.max(loanTermMonths || 0, 60);
+            const labels = Array.from({length: chartDurationMonths}, (_, i) => `Month ${i+1}`);
+            const monthlyRevenueData = [];
+            const monthlyTotalCostsData = [];
+            const monthlyNetProfitData = [];
+            const monthlyNetProfitMarginData = [];
+            const breakEvenData = Array(chartDurationMonths).fill(breakEvenRevenue);
+
+            // Start loop from month 1 for monthly chart
+            for (let month = 1; month <= chartDurationMonths; month++) {
+                const revenue = totalMonthlyUnitProduction * sellingPrice;
+                const variableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
+                const fixedOpCosts = totalMonthlyLaborCost + totalMonthlyFixedCosts;
+                const currentLoanPayment = (month <= loanTermMonths) ? monthlyLoanPayment : 0;
+                const totalCosts = variableCosts + fixedOpCosts + currentLoanPayment;
+                const netProfit = revenue - totalCosts;
+                const profitMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+
+                monthlyRevenueData.push(revenue);
+                monthlyTotalCostsData.push(totalCosts);
+                monthlyNetProfitData.push(netProfit);
+                monthlyNetProfitMarginData.push(profitMargin);
+            }
+
+            // --- Y-Axis Max Calculation ---
+            const buffer = 1.15; // Add 15% padding
+
+            // For Monthly Chart: Find the largest value among revenue and costs
+            const monthlyMaxRevenue = Math.max(...monthlyRevenueData, 0);
+            const monthlyMaxCosts = Math.max(...monthlyTotalCostsData, 0);
+            const monthlyOverallMax = Math.max(monthlyMaxRevenue, monthlyMaxCosts, breakEvenRevenue || 0);
+            const monthlySuggestedMax = monthlyOverallMax === 0 ? 100 : monthlyOverallMax * buffer; // Avoid 0 max
+            
+            // Ensure the minimum is appropriate (usually 0 for monthly, unless large losses)
+            const monthlyMinProfit = Math.min(...monthlyNetProfitData, 0);
+            const monthlySuggestedMin = monthlyMinProfit < 0 ? monthlyMinProfit * buffer : 0; // Add buffer below zero if loss occurs
+
+            // --- Update Monthly Chart ---
+            if (monthlyCashFlowChartInstance) {
+                monthlyCashFlowChartInstance.data.labels = labels;
+                monthlyCashFlowChartInstance.data.datasets[0].data = monthlyRevenueData;
+                monthlyCashFlowChartInstance.data.datasets[1].data = monthlyTotalCostsData;
+                monthlyCashFlowChartInstance.data.datasets[2].data = monthlyNetProfitData;
+                monthlyCashFlowChartInstance.data.datasets[3].data = breakEvenData;
+                monthlyCashFlowChartInstance.data.datasets[4].data = monthlyNetProfitMarginData;
+                
+                // Update the loan completion line annotation
+                if (loanTermMonths > 0) {
+                    monthlyCashFlowChartInstance.options.plugins.annotation.annotations.loanCompletionLine.xMin = loanTermMonths - 1;
+                    monthlyCashFlowChartInstance.options.plugins.annotation.annotations.loanCompletionLine.xMax = loanTermMonths - 1;
+                }
+                
+                // Handle Y-axis scaling with lock feature
+                if (lockYAxisScale && lockedYMax > 0) {
+                    monthlyCashFlowChartInstance.options.scales.y.max = lockedYMax;
+                    monthlyCashFlowChartInstance.options.scales.y.min = monthlySuggestedMin;
+                } else {
+                    monthlyCashFlowChartInstance.options.scales.y.suggestedMax = monthlySuggestedMax;
+                    monthlyCashFlowChartInstance.options.scales.y.suggestedMin = monthlySuggestedMin;
+                    // Update the locked value if needed
+                    if (lockYAxisScale) {
+                        lockedYMax = monthlySuggestedMax;
+                    }
+                }
+                
+                monthlyCashFlowChartInstance.update();
+            }
+            
+            // Update cost breakdown chart
+            if (costBreakdownChartInstance) {
+                costBreakdownChartInstance.data.datasets[0].data = [
+                    totalMonthlyVariableCosts,
+                    totalMonthlyLaborCost,
+                    totalMonthlyFixedCosts,
+                    monthlyLoanPayment
+                ];
+                costBreakdownChartInstance.update();
+            }
+            
+            // Update production chart
+            if (productionChartInstance) {
+                productionChartInstance.data.labels = labels.slice(0, 12); // First year only
+                productionChartInstance.data.datasets[0].data = Array(12).fill(totalMonthlyUnitProduction);
+                productionChartInstance.update();
+            }
+        }
+
+
+        // --- Main Calculation Function --- (Largely unchanged, just calls the updated chart function)
+        function calculateModel() {
+            const selectedMode = document.querySelector('input[name="calcMode"]:checked').value;
+            let numMachines = 0;
+            const iceShapeSelect = $('iceShape');
+            const selectedOption = iceShapeSelect.options[iceShapeSelect.selectedIndex];
+            const unitsPerCycle = parseFloat(selectedOption.getAttribute('data-capacity')) || 0;
+            const sellingPrice = parseFloat($('sellingPrice').value) || 0;
+            const daysOperating = parseFloat($('daysOperating').value) || 30;
+            const laborHoursPerDay = parseFloat($('laborHoursPerDay').value) || 0;
+            const laborCostPerHour = parseFloat($('laborCostPerHour').value) || 0;
+            const machineCost = parseFloat($('machineCost').value) || 0;
+            const cycleTime = parseFloat($('cycleTime').value) || 24;
+            const waterPerCycle = parseFloat($('waterPerCycle').value) || 0;
+            const waterRate = parseFloat($('waterRate').value) || 0;
+            const iceMakingPower = parseFloat($('iceMakingPower').value) || 0;
+            const iceDetachingPower = parseFloat($('iceDetachingPower').value) || 0;
+            const detachingDuration = parseFloat($('detachingDuration').value) || 0;
+            const electricityRate = parseFloat($('electricityRate').value) || 0;
+            const packagingCostUnit = parseFloat($('packagingCostUnit').value) || 0;
+            const monthlyMaintenancePerMachine = parseFloat($('monthlyMaintenancePerMachine').value) || 0;
+            const monthlyRent = parseFloat($('monthlyRent').value) || 0;
+            const monthlyInsurance = parseFloat($('monthlyInsurance').value) || 0;
+            const downPaymentPercent = (parseFloat($('downPaymentPercent').value) || 0) / 100;
+            const loanTermYears = parseFloat($('loanTermYears').value) || 0;
+            const interestRate = (parseFloat($('interestRate').value) || 0) / 100;
+
+            let totalMonthlyUnitProduction = 0;
+            let calculatedMachinesText = '';
+
+            const cyclesPerDay = cycleTime > 0 ? 24 / cycleTime : 0;
+            const maxUnitsPerMachineDay = unitsPerCycle * cyclesPerDay;
+            const makingDuration = Math.max(0, cycleTime - detachingDuration);
+            const energyPerCycle = ((iceMakingPower / 1000) * makingDuration) + ((iceDetachingPower / 1000) * detachingDuration);
+            const dailyEnergyPerMachine = energyPerCycle * cyclesPerDay;
+            const dailyWaterPerMachine = waterPerCycle * cyclesPerDay;
+            $('displayProductionRate').textContent = `Est. ${formatNumber(maxUnitsPerMachineDay, 1)} units/day/machine`;
+
+             if (selectedMode === 'machines') {
+                numMachines = parseFloat($('numMachines').value) || 0;
+                $('numMachinesValue').textContent = numMachines;
+                totalMonthlyUnitProduction = maxUnitsPerMachineDay * numMachines * daysOperating;
+                $('displayMachinesUsed').textContent = '';
+                $('calculatedMachinesText').textContent = '';
+            } else { // mode === 'demand'
+                const targetMonthlyDemand = parseFloat($('targetMonthlyDemand').value) || 0;
+                const unitsPerMachineMonth = maxUnitsPerMachineDay * daysOperating;
+                if (unitsPerMachineMonth > 0) {
+                    numMachines = Math.ceil(targetMonthlyDemand / unitsPerMachineMonth);
+                } else {
+                    numMachines = 0;
+                }
+                const maxCapacity = unitsPerMachineMonth * numMachines;
+                totalMonthlyUnitProduction = Math.min(targetMonthlyDemand, maxCapacity);
+                calculatedMachinesText = `Requires approx. ${numMachines} machine(s).`;
+                $('calculatedMachinesText').textContent = calculatedMachinesText;
+                $('displayMachinesUsed').textContent = `(${numMachines} Machine(s) Calculated)`;
+            }
+
+            const energyCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyEnergyPerMachine * electricityRate) / maxUnitsPerMachineDay : 0;
+            const waterCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyWaterPerMachine * waterRate) / maxUnitsPerMachineDay : 0;
+            const variableCostPerUnit = energyCostPerUnit + waterCostPerUnit + packagingCostUnit;
+
+            const totalMonthlyRevenue = totalMonthlyUnitProduction * sellingPrice;
+            const totalMonthlyVariableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
+            const totalMonthlyLaborCost = laborHoursPerDay * laborCostPerHour * daysOperating;
+            const totalMonthlyMaintenance = monthlyMaintenancePerMachine * numMachines;
+            const totalMonthlyFixedCosts_Chart = monthlyRent + monthlyInsurance + totalMonthlyMaintenance;
+            const totalMonthlyOperatingCosts = totalMonthlyVariableCosts + totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart;
+            const monthlyGrossProfit = totalMonthlyRevenue - totalMonthlyOperatingCosts;
+
+            const totalEquipmentCost = machineCost * numMachines;
+            const initialDownPayment = totalEquipmentCost * downPaymentPercent;
+            const totalLoanAmount = totalEquipmentCost - initialDownPayment;
+            const monthlyInterestRate = interestRate / 12;
+            const loanTermMonths = loanTermYears * 12;
+            const monthlyLoanPayment = (loanTermMonths > 0 && totalLoanAmount > 0) ? calculatePMT(monthlyInterestRate, loanTermMonths, totalLoanAmount) : 0;
+
+            const totalMonthlyCosts = totalMonthlyOperatingCosts + monthlyLoanPayment;
+            const monthlyNetProfit = monthlyGrossProfit - monthlyLoanPayment;
+            const annualNetProfit = monthlyNetProfit * 12;
+
+            const totalCostPerUnit = totalMonthlyUnitProduction > 0 ? totalMonthlyCosts / totalMonthlyUnitProduction : 0;
+            const netProfitMargin = totalMonthlyRevenue > 0 ? monthlyNetProfit / totalMonthlyRevenue : 0;
+
+            const profitPerUnitMargin = sellingPrice - variableCostPerUnit;
+            const totalMonthlyFixedForBreakEven = totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart + monthlyLoanPayment;
+            const breakEvenUnits = profitPerUnitMargin > 0 ? totalMonthlyFixedForBreakEven / profitPerUnitMargin : Infinity;
+            const breakEvenRevenue = breakEvenUnits === Infinity ? Infinity : breakEvenUnits * sellingPrice;
+
+            const paybackPeriod = (annualNetProfit > 0 && totalEquipmentCost > 0) ? totalEquipmentCost / annualNetProfit : Infinity;
+            const annualROI = (totalEquipmentCost > 0) ? annualNetProfit / totalEquipmentCost : Infinity;
+
+            // --- Update Output Fields --- (Unchanged)
+            $('totalMonthlyRevenue').textContent = formatCurrency(totalMonthlyRevenue);
+            $('monthlyGrossProfit').textContent = formatCurrency(monthlyGrossProfit);
+            const netProfitElement = $('monthlyNetProfit');
+            netProfitElement.textContent = formatCurrency(monthlyNetProfit);
+            netProfitElement.className = monthlyNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+            const annualNetProfitElement = $('annualNetProfit');
+            annualNetProfitElement.textContent = formatCurrency(annualNetProfit);
+            annualNetProfitElement.className = annualNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+            $('totalMonthlyVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
+            $('totalMonthlyLaborCost').textContent = formatCurrency(totalMonthlyLaborCost);
+            $('totalMonthlyFixedCosts').textContent = formatCurrency(totalMonthlyFixedCosts_Chart);
+            $('monthlyLoanPayment').textContent = formatCurrency(monthlyLoanPayment);
+            $('totalMonthlyCosts').textContent = formatCurrency(totalMonthlyCosts);
+            $('variableCostPerUnit').textContent = formatCurrency(variableCostPerUnit);
+            $('totalCostPerUnit').textContent = formatCurrency(totalCostPerUnit);
+            $('netProfitMargin').textContent = formatPercent(netProfitMargin);
+            $('breakEvenUnits').textContent = breakEvenUnits === Infinity ? 'N/A' : formatNumber(breakEvenUnits, 0);
+            $('breakEvenRevenue').textContent = breakEvenRevenue === Infinity ? 'N/A' : formatCurrency(breakEvenRevenue);
+            $('totalEquipmentCost').textContent = formatCurrency(totalEquipmentCost);
+            $('initialDownPayment').textContent = formatCurrency(initialDownPayment);
+            $('totalLoanAmount').textContent = formatCurrency(totalLoanAmount);
+            $('paybackPeriod').textContent = paybackPeriod === Infinity ? 'N/A (or negative profit)' : `${formatNumber(paybackPeriod, 2)} Years`;
+            $('annualROI').textContent = annualROI === Infinity ? 'N/A' : formatPercent(annualROI);
+
+            // --- Call Chart Update Function ---
+            updateNewCharts({
+                totalMonthlyUnitProduction,
+                sellingPrice,
+                variableCostPerUnit,
+                totalMonthlyLaborCost,
+                totalMonthlyFixedCosts: totalMonthlyFixedCosts_Chart,
+                monthlyLoanPayment,
+                breakEvenRevenue,
+                totalMonthlyVariableCosts,
+                loanTermMonths
+             });
+        }
+
+         // --- Mode Switching Logic --- (Unchanged)
+         function handleModeChange() {
+            const selectedMode = document.querySelector('input[name="calcMode"]:checked').value;
+            const machineInputDiv = $('inputNumMachinesContainer');
+            const demandInputDiv = $('inputDemandContainer');
+
+            if (selectedMode === 'machines') {
+                machineInputDiv.classList.remove('hidden-smooth');
+                demandInputDiv.classList.add('hidden-smooth');
+            } else {
+                machineInputDiv.classList.add('hidden-smooth');
+                demandInputDiv.classList.remove('hidden-smooth');
+            }
+            calculateModel();
+         }
+
+        // --- Event Listeners ---
+        const inputs = document.querySelectorAll('.input-field, .input-select');
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateModel);
+            input.addEventListener('change', calculateModel);
+        });
+
+        // Slider event
+        $('numMachines').addEventListener('input', () => {
+            $('numMachinesValue').textContent = $('numMachines').value;
+        });
+
+        // Mode switching
+        document.querySelectorAll('input[name="calcMode"]').forEach(radio => {
+            radio.addEventListener('change', handleModeChange);
+        });
+        
+        // Chart controls
+        $('lockYAxis').addEventListener('change', function() {
+            lockYAxisScale = this.checked;
+            calculateModel();
+        });
+        
+        // Chart visibility toggles
+        document.querySelectorAll('[id^="show"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const index = parseInt(this.dataset.index);
+                if (!isNaN(index) && monthlyCashFlowChartInstance?.data?.datasets[index]) {
+                    monthlyCashFlowChartInstance.data.datasets[index].hidden = !this.checked;
+                    monthlyCashFlowChartInstance.update();
+                }
+            });
+        });
+
+        // --- Initial Calculation & Setup on Load ---
+        window.onload = () => {
+            initializeNewCharts();
+            handleModeChange();
+        };
+
+    </script>
+</body>
+</html>
