@@ -224,16 +224,36 @@
                  <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
                      <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Monthly Costs Breakdown</h3>
                      <div>
-                         <span class="output-label">Variable Costs (Energy, Water, Pack)</span>
-                         <p id="totalMonthlyVariableCosts" class="output-value">$0.00</p>
+                         <span class="output-label">Energy Cost</span>
+                         <p id="totalMonthlyEnergyCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Water Cost</span>
+                         <p id="totalMonthlyWaterCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Packaging Cost</span>
+                         <p id="totalMonthlyPackagingCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Distribution Cost</span>
+                         <p id="totalMonthlyDistributionCost" class="output-value">$0.00</p>
                      </div>
                      <div class="mt-2">
                          <span class="output-label">Labor Cost</span>
                          <p id="totalMonthlyLaborCost" class="output-value">$0.00</p>
                      </div>
                      <div class="mt-2">
-                         <span class="output-label">Fixed Costs (Rent, Ins, Maint)</span>
-                         <p id="totalMonthlyFixedCosts" class="output-value">$0.00</p>
+                         <span class="output-label">Rent</span>
+                         <p id="monthlyRentCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Insurance</span>
+                         <p id="monthlyInsuranceCost" class="output-value">$0.00</p>
+                     </div>
+                     <div class="mt-2">
+                         <span class="output-label">Maintenance</span>
+                         <p id="totalMaintenanceCost" class="output-value">$0.00</p>
                      </div>
                      <div class="mt-2">
                          <span class="output-label">Loan Payment</span>
@@ -772,6 +792,12 @@
             const paybackPeriod = (annualNetProfit > 0 && totalEquipmentCost > 0) ? totalEquipmentCost / annualNetProfit : Infinity;
             const annualROI = (totalEquipmentCost > 0) ? annualNetProfit / totalEquipmentCost : Infinity;
 
+            // Calculate individual variable costs
+            const monthlyEnergyCost = totalMonthlyUnitProduction * energyCostPerUnit;
+            const monthlyWaterCost = totalMonthlyUnitProduction * waterCostPerUnit;
+            const monthlyPackagingCost = totalMonthlyUnitProduction * packagingCostUnit;
+            const monthlyDistributionCost = totalMonthlyUnitProduction * distributionCostUnit;
+
             // --- Update Output Fields ---
             $('totalMonthlyRevenue').textContent = formatCurrency(totalMonthlyRevenue);
             $('monthlyGrossProfit').textContent = formatCurrency(monthlyGrossProfit);
@@ -781,9 +807,16 @@
             const annualNetProfitElement = $('annualNetProfit');
             annualNetProfitElement.textContent = formatCurrency(annualNetProfit);
             annualNetProfitElement.className = annualNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
-            $('totalMonthlyVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
+            
+            // Update individual cost components
+            $('totalMonthlyEnergyCost').textContent = formatCurrency(monthlyEnergyCost);
+            $('totalMonthlyWaterCost').textContent = formatCurrency(monthlyWaterCost);
+            $('totalMonthlyPackagingCost').textContent = formatCurrency(monthlyPackagingCost);
+            $('totalMonthlyDistributionCost').textContent = formatCurrency(monthlyDistributionCost);
             $('totalMonthlyLaborCost').textContent = formatCurrency(totalMonthlyLaborCost);
-            $('totalMonthlyFixedCosts').textContent = formatCurrency(totalMonthlyFixedCosts_Chart);
+            $('monthlyRentCost').textContent = formatCurrency(monthlyRent);
+            $('monthlyInsuranceCost').textContent = formatCurrency(monthlyInsurance);
+            $('totalMaintenanceCost').textContent = formatCurrency(totalMonthlyMaintenance);
             $('monthlyLoanPayment').textContent = formatCurrency(monthlyLoanPayment);
             $('totalMonthlyCosts').textContent = formatCurrency(totalMonthlyCosts);
             $('variableCostPerUnit').textContent = formatCurrency(variableCostPerUnit);
