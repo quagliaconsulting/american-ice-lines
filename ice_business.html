@@ -529,8 +529,7 @@
             });
 
             // Initialize production volume chart
-            const productionCtx = $('productionChart').getContext('2d');
-            productionChartInstance = new Chart(productionCtx, {
+            const productionCtx = $('productionChart').getContext('2d');            productionChartInstance = new Chart(productionCtx, {
                 type: 'bar',
                 data: {
                     labels: [],
@@ -543,7 +542,17 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            bottom: 15
+                        }
+                    },
                     scales: {
+                        x: {
+                            ticks: {
+                                padding: 8
+                            }
+                        },
                         y: {
                             title: { display: true, text: 'Units Produced' },
                             beginAtZero: true
