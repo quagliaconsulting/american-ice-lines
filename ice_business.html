@@ -760,7 +760,9 @@
             const breakEvenRevenue = breakEvenUnits === Infinity ? Infinity : breakEvenUnits * sellingPrice;
 
             const requiredCustomers = avgCustomerDemand > 0 ? Math.ceil(targetMonthlyDemand / avgCustomerDemand) : 0;
-            const capacityUtilization = totalMonthlyUnitProduction > 0 ? (totalMonthlyUnitProduction / (maxUnitsPerMachineDay * numMachines * daysOperating)) * 100 : 0;
+            // Calculate capacity utilization (as decimal, then convert to percentage)
+            const maxMonthlyCapacity = maxUnitsPerMachineDay * numMachines * daysOperating;
+            const capacityUtilization = maxMonthlyCapacity > 0 ? (totalMonthlyUnitProduction / maxMonthlyCapacity) : 0;
 
             const paybackPeriod = (annualNetProfit > 0 && totalEquipmentCost > 0) ? totalEquipmentCost / annualNetProfit : Infinity;
             const annualROI = (totalEquipmentCost > 0) ? annualNetProfit / totalEquipmentCost : Infinity;
@@ -790,7 +792,7 @@
             $('paybackPeriod').textContent = paybackPeriod === Infinity ? 'N/A (or negative profit)' : `${formatNumber(paybackPeriod, 2)} Years`;
             $('annualROI').textContent = annualROI === Infinity ? 'N/A' : formatPercent(annualROI);
             $('requiredCustomers').textContent = formatNumber(requiredCustomers, 0);
-            $('capacityUtilization').textContent = formatPercent(capacityUtilization);
+            $('capacityUtilization').textContent = (capacityUtilization * 100).toFixed(1) + '%';
 
             // --- Call Chart Update Function ---
             updateNewCharts({
