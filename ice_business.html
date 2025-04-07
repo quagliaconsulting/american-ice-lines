@@ -198,28 +198,109 @@
 
         <div class="mt-10 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-6 rounded-lg shadow-md border border-indigo-200">
              <h2 class="text-xl font-bold text-indigo-800 mb-6 text-center">Financial Summary & Key Metrics</h2>
-             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                  <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
-                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Revenue & Profit</h3>
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Key Performance Indicators (KPIs)</h3>
                      <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
-                     <div id="displayProductionRate" class="mb-2 text-sm text-gray-600"></div>
+                     <div id="displayProductionRate" class="mb-4 text-sm text-gray-600"></div>
+                     
+                     <!-- Top Line Metrics -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Revenue Metrics</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Monthly Revenue</span>
+                                 <p id="totalMonthlyRevenue" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Annual Revenue</span>
+                                 <p id="annualRevenue" class="output-value text-xl">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Profit Metrics -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Profitability</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Gross Profit</span>
+                                 <p id="monthlyGrossProfit" class="output-value text-xl">$0.00</p>
+                                 <span class="text-xs text-gray-500">(before financing)</span>
+                             </div>
+                             <div>
+                                 <span class="output-label">Net Profit</span>
+                                 <p id="monthlyNetProfit" class="output-value text-xl">$0.00</p>
+                                 <span class="text-xs text-gray-500">(monthly)</span>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Margin Analysis -->
                      <div>
-                         <span class="output-label">Total Monthly Revenue</span>
-                         <p id="totalMonthlyRevenue" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Monthly Gross Profit (before financing)</span>
-                         <p id="monthlyGrossProfit" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Monthly Net Profit</span>
-                         <p id="monthlyNetProfit" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Annual Net Profit</span>
-                         <p id="annualNetProfit" class="output-value">$0.00</p>
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Margin Analysis</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Gross Margin</span>
+                                 <p id="grossMargin" class="output-value">0.00%</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Net Margin</span>
+                                 <p id="netProfitMargin" class="output-value">0.00%</p>
+                             </div>
+                         </div>
                      </div>
                  </div>
+
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Cost Structure Analysis</h3>
+                     
+                     <!-- Variable Costs -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Variable Costs</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Total Variable Costs</span>
+                                 <p id="totalVariableCosts" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Per Unit</span>
+                                 <p id="variableCostPerUnit" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Fixed Costs -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Fixed Costs</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Monthly Fixed Costs</span>
+                                 <p id="totalFixedCosts" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Including Financing</span>
+                                 <p id="totalFixedWithFinancing" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Break-Even Analysis -->
+                     <div>
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Break-Even Analysis</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Break-Even Units</span>
+                                 <p id="breakEvenUnits" class="output-value">0</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Break-Even Revenue</span>
+                                 <p id="breakEvenRevenue" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
                  <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
                      <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Monthly Costs Breakdown</h3>
@@ -804,9 +885,18 @@
             const netProfitElement = $('monthlyNetProfit');
             netProfitElement.textContent = formatCurrency(monthlyNetProfit);
             netProfitElement.className = monthlyNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
-            const annualNetProfitElement = $('annualNetProfit');
-            annualNetProfitElement.textContent = formatCurrency(annualNetProfit);
-            annualNetProfitElement.className = annualNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+            // Update MBA-style metrics
+            const annualRevenue = totalMonthlyRevenue * 12;
+            const grossMargin = totalMonthlyRevenue > 0 ? monthlyGrossProfit / totalMonthlyRevenue : 0;
+            const totalFixedCosts = totalMonthlyFixedCosts_Chart;
+            const totalFixedWithFinancing = totalFixedCosts + monthlyLoanPayment;
+            
+            // Update display elements
+            $('annualRevenue').textContent = formatCurrency(annualRevenue);
+            $('grossMargin').textContent = formatPercent(grossMargin);
+            $('totalVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
+            $('totalFixedCosts').textContent = formatCurrency(totalFixedCosts);
+            $('totalFixedWithFinancing').textContent = formatCurrency(totalFixedWithFinancing);
             
             // Update individual cost components
             $('totalMonthlyEnergyCost').textContent = formatCurrency(monthlyEnergyCost);
