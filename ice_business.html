@@ -158,6 +158,10 @@
                     <label for="packagingCostUnit" class="input-label">Packaging Cost per Ice Unit ($)</label>
                     <input type="number" id="packagingCostUnit" value="0.05" step="0.01" min="0" class="input-field">
                  </div>
+                 <div>
+                    <label for="distributionCostUnit" class="input-label">Distribution Cost per Ice Unit ($)</label>
+                    <input type="number" id="distributionCostUnit" value="0.10" step="0.01" min="0" class="input-field">
+                 </div>
             </div>
 
             <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
@@ -730,7 +734,8 @@
 
             const energyCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyEnergyPerMachine * electricityRate) / maxUnitsPerMachineDay : 0;
             const waterCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyWaterPerMachine * waterRate) / maxUnitsPerMachineDay : 0;
-            const variableCostPerUnit = energyCostPerUnit + waterCostPerUnit + packagingCostUnit;
+            const distributionCostUnit = parseFloat($('distributionCostUnit').value) || 0;
+            const variableCostPerUnit = energyCostPerUnit + waterCostPerUnit + packagingCostUnit + distributionCostUnit;
 
             const totalMonthlyRevenue = totalMonthlyUnitProduction * sellingPrice;
             const totalMonthlyVariableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
