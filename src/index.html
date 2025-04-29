@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMT300 Craft Ice Business Financial Model (Dual Mode)</title>
+    <title>IMT300 Premium Craft Ice | ROI & Financial Analysis Tool</title>
+    <meta name="description" content="Interactive financial model for IMT300 craft ice business. Analyze ROI, break-even points, profit margins and market opportunities.">
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
     <style>
         /* Inter font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Light gray background */
+            background-image: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
         }
         /* Custom Tailwind component styles */
         .input-label { @apply block text-sm font-medium text-gray-700 mb-1; }
@@ -47,27 +55,33 @@
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">IMT300 Craft Ice Business Financial Model</h1>
-        <p class="text-center text-gray-600 mb-6">Select mode, ice shape, adjust inputs based on IMT300 specs, and view the financial summary and charts below. Costs are estimates.</p>
+    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg border-t-4 border-indigo-600">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">IMT300 Premium Craft Ice <span class="text-indigo-600">Business ROI Model</span></h1>
+        <p class="text-center text-gray-600 mb-6">Optimize your ice business investment with our interactive financial analysis tool. Customize parameters to see real-time projections and ROI calculations.</p>
 
-        <div class="mb-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-            <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Select Calculation Mode</h2>
+        <div class="mb-6 p-5 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 rounded-lg border border-indigo-200 shadow-sm">
+            <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Business Planning Mode</h2>
             <div class="flex justify-center space-x-6">
-                <div class="flex items-center">
+                <div class="flex items-center bg-white p-2 rounded-lg shadow-sm border border-indigo-100 transition-all hover:shadow-md">
                     <input id="modeMachines" name="calcMode" type="radio" value="machines" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                    <label for="modeMachines" class="radio-label">Scale by Number of Machines</label>
+                    <label for="modeMachines" class="radio-label font-medium">Capital Investment <span class="text-xs text-gray-500">(Scale by Machine Count)</span></label>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center bg-white p-2 rounded-lg shadow-sm border border-indigo-100 transition-all hover:shadow-md">
                     <input id="modeDemand" name="calcMode" type="radio" value="demand" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                    <label for="modeDemand" class="radio-label">Scale by Monthly Demand (Units)</label>
+                    <label for="modeDemand" class="radio-label font-medium">Market Demand <span class="text-xs text-gray-500">(Scale by Monthly Units)</span></label>
                 </div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Core Inputs</h2>
+            <div class="space-y-4 p-4 bg-gradient-to-b from-blue-50 to-white rounded-lg border border-blue-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-blue-800 border-b border-blue-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Core Business Parameters
+                </h2>
                 <div id="inputNumMachinesContainer">
                     <label for="numMachines" class="input-label">Number of Ice Machines</label>
                     <input type="range" id="numMachines" min="1" max="50" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700 input-field">
@@ -109,8 +123,13 @@
                 </div>
             </div>
 
-            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Machine & Variable Costs</h2>
+            <div class="space-y-4 p-4 bg-gradient-to-b from-green-50 to-white rounded-lg border border-green-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-green-800 border-b border-green-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Operating & Variable Expenses
+                </h2>
                  <div>
                     <label for="machineCost" class="input-label">Cost per IMT300 Machine ($)</label>
                     <input type="number" id="machineCost" value="5000" step="100" min="0" class="input-field">
@@ -164,8 +183,13 @@
                  </div>
             </div>
 
-            <div class="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">Fixed Costs & Financing</h2>
+            <div class="space-y-4 p-4 bg-gradient-to-b from-purple-50 to-white rounded-lg border border-purple-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-purple-800 border-b border-purple-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Fixed Costs & Financing
+                </h2>
                  <div>
                     <label for="monthlyMaintenancePerMachine" class="input-label">Monthly Maintenance per Machine ($)</label>
                     <input type="number" id="monthlyMaintenancePerMachine" value="50" step="5" min="0" class="input-field">
@@ -196,14 +220,19 @@
             </div>
         </div>
 
-        <div class="mt-10 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-6 rounded-lg shadow-md border border-indigo-200">
-             <h2 class="text-xl font-bold text-indigo-800 mb-6 text-center">Financial Summary & Key Metrics</h2>
+        <div class="mt-10 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 p-6 rounded-lg shadow-md border border-indigo-300">
+             <h2 class="text-2xl font-bold text-indigo-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Financial Performance & ROI Analysis
+             </h2>
              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                  <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
                      <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Key Performance Indicators (KPIs)</h3>
                      <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
                      <div id="displayProductionRate" class="mb-4 text-sm text-gray-600"></div>
-                     
+
                      <!-- Top Line Metrics -->
                      <div class="mb-4">
                          <h4 class="text-md font-semibold text-indigo-600 mb-2">Revenue Metrics</h4>
@@ -254,7 +283,7 @@
 
                  <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
                      <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Cost Structure Analysis</h3>
-                     
+
                      <!-- Variable Costs -->
                      <div class="mb-4">
                          <h4 class="text-md font-semibold text-indigo-600 mb-2">Variable Costs</h4>
@@ -302,112 +331,274 @@
                  </div>
              </div>
 
-                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
-                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Monthly Costs Breakdown</h3>
-                     <div>
-                         <span class="output-label">Energy Cost</span>
-                         <p id="totalMonthlyEnergyCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Water Cost</span>
-                         <p id="totalMonthlyWaterCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Packaging Cost</span>
-                         <p id="totalMonthlyPackagingCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Distribution Cost</span>
-                         <p id="totalMonthlyDistributionCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Labor Cost</span>
-                         <p id="totalMonthlyLaborCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Rent</span>
-                         <p id="monthlyRentCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Insurance</span>
-                         <p id="monthlyInsuranceCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Maintenance</span>
-                         <p id="totalMaintenanceCost" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Loan Payment</span>
-                         <p id="monthlyLoanPayment" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-4 border-t pt-2">
-                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Cost Classification</h4>
-                         <div class="mb-2">
-                             <span class="output-label">Total Variable Costs</span>
-                             <p class="output-value text-gray-700">(Energy + Water + Packaging + Distribution)</p>
-                             <p id="totalVariableCostsBreakdown" class="output-value">$0.00</p>
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        Monthly Cost Structure
+                    </h3>
+
+                    <!-- Direct Costs Section -->
+                    <div class="bg-blue-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-blue-800 mb-2 border-b border-blue-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                            Production & Materials
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Energy</span>
+                                    <p id="totalMonthlyEnergyCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Water</span>
+                                    <p id="totalMonthlyWaterCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Packaging</span>
+                                    <p id="totalMonthlyPackagingCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Distribution</span>
+                                    <p id="totalMonthlyDistributionCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fixed Costs Section -->
+                    <div class="bg-purple-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-purple-800 mb-2 border-b border-purple-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            Business Operations
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Labor</span>
+                                    <p id="totalMonthlyLaborCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Facility Rent</span>
+                                    <p id="monthlyRentCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Insurance</span>
+                                    <p id="monthlyInsuranceCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Maintenance</span>
+                                    <p id="totalMaintenanceCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financing Section -->
+                    <div class="bg-green-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-green-800 mb-2 border-b border-green-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Financing
+                        </h4>
+                        <div class="bg-white p-2 rounded shadow-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-medium text-gray-600">Monthly Loan Payment</span>
+                                <p id="monthlyLoanPayment" class="text-sm font-semibold text-gray-900">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Classification Summary -->
+                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-3 border-b border-gray-200 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            Cost Classification
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 p-2 rounded-md border border-blue-100">
+                                <p class="text-xs font-medium text-blue-800 mb-1">Total Variable Costs</p>
+                                <p class="text-xs text-blue-600 mb-1">(Energy + Water + Packaging + Distribution)</p>
+                                <p id="totalVariableCostsBreakdown" class="text-base font-bold text-blue-900">$0.00</p>
+                            </div>
+                            <div class="bg-purple-50 p-2 rounded-md border border-purple-100">
+                                <p class="text-xs font-medium text-purple-800 mb-1">Total Fixed Operating Costs</p>
+                                <p class="text-xs text-purple-600 mb-1">(Labor + Rent + Insurance + Maintenance)</p>
+                                <p id="totalFixedOpCostsBreakdown" class="text-base font-bold text-purple-900">$0.00</p>
+                            </div>
+                            <div class="bg-green-50 p-2 rounded-md border border-green-100">
+                                <p class="text-xs font-medium text-green-800 mb-1">Financing Costs</p>
+                                <p id="financingCostsBreakdown" class="text-base font-bold text-green-900">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Costs -->
+                    <div class="bg-indigo-100 p-3 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-sm font-bold text-indigo-900">TOTAL MONTHLY COSTS</h4>
+                            <p id="totalMonthlyCosts" class="text-lg font-bold text-indigo-900">$0.00</p>
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Performance Metrics & Indicators
+                     </h3>
+
+                     <div class="grid grid-cols-2 gap-4">
+                         <!-- Cost Metrics -->
+                         <div class="bg-amber-50 p-3 rounded-lg">
+                             <h4 class="text-sm font-semibold text-amber-800 mb-2 border-b border-amber-100 pb-1 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Unit Economics
+                             </h4>
+                             <div class="space-y-3">
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Variable Cost per Unit</span>
+                                         <p id="variableCostPerUnit" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                     </div>
+                                 </div>
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Total Cost per Unit</span>
+                                         <p id="totalCostPerUnit" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                     </div>
+                                 </div>
+                             </div>
                          </div>
-                         <div class="mb-2">
-                             <span class="output-label">Total Fixed Operating Costs</span>
-                             <p class="output-value text-gray-700">(Labor + Rent + Insurance + Maintenance)</p>
-                             <p id="totalFixedOpCostsBreakdown" class="output-value">$0.00</p>
-                         </div>
-                         <div class="mb-2">
-                             <span class="output-label">Financing Costs</span>
-                             <p id="financingCostsBreakdown" class="output-value">$0.00</p>
+
+                         <!-- Profitability Metrics -->
+                         <div class="bg-green-50 p-3 rounded-lg">
+                             <h4 class="text-sm font-semibold text-green-800 mb-2 border-b border-green-100 pb-1 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                                Profitability
+                             </h4>
+                             <div class="space-y-3">
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Net Profit Margin</span>
+                                         <p id="netProfitMargin" class="text-sm font-semibold text-green-700">0.00%</p>
+                                     </div>
+                                 </div>
+                             </div>
                          </div>
                      </div>
-                     <div class="mt-2 border-t pt-2">
-                         <span class="output-label font-bold">Total Monthly Costs</span>
-                         <p id="totalMonthlyCosts" class="output-value font-bold">$0.00</p>
+
+                     <!-- Break-Even Analysis -->
+                     <div class="mt-4 bg-blue-50 p-3 rounded-lg">
+                         <h4 class="text-sm font-semibold text-blue-800 mb-2 border-b border-blue-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                            </svg>
+                            Break-Even Analysis
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Break-Even Units</span>
+                                     <p id="breakEvenUnits" class="text-sm font-semibold text-gray-900">0</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Break-Even Revenue</span>
+                                     <p id="breakEvenRevenue" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                         </div>
                      </div>
                  </div>
 
-                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
-                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Key Metrics</h3>
-                     <div>
-                         <span class="output-label">Variable Cost per Ice Unit</span>
-                         <p id="variableCostPerUnit" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Total Cost per Ice Unit (Approx)</span>
-                         <p id="totalCostPerUnit" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Net Profit Margin</span>
-                         <p id="netProfitMargin" class="output-value">0.00%</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Break-Even Units per Month</span>
-                         <p id="breakEvenUnits" class="output-value">0</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Break-Even Revenue per Month</span>
-                         <p id="breakEvenRevenue" class="output-value">$0.00</p>
-                     </div>
-                 </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Investment Analysis & ROI
+                     </h3>
 
-                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
-                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Investment & Return</h3>
-                     <div>
-                         <span class="output-label">Total Equipment Cost</span>
-                         <p id="totalEquipmentCost" class="output-value">$0.00</p>
+                     <!-- Capital Investment -->
+                     <div class="bg-indigo-50 p-3 rounded-lg mb-4">
+                         <h4 class="text-sm font-semibold text-indigo-800 mb-2 border-b border-indigo-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            Capital Requirements
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3 mb-2">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Total Equipment Cost</span>
+                                     <p id="totalEquipmentCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Initial Down Payment</span>
+                                     <p id="initialDownPayment" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="bg-white p-2 rounded shadow-sm">
+                             <div class="flex justify-between items-center">
+                                 <span class="text-xs font-medium text-gray-600">Total Amount Financed</span>
+                                 <p id="totalLoanAmount" class="text-sm font-semibold text-gray-900">$0.00</p>
+                             </div>
+                         </div>
                      </div>
-                     <div class="mt-2">
-                         <span class="output-label">Initial Down Payment</span>
-                         <p id="initialDownPayment" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Total Amount Financed</span>
-                         <p id="totalLoanAmount" class="output-value">$0.00</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Simple Payback Period (Years)</span>
-                         <p id="paybackPeriod" class="output-value">N/A</p>
-                     </div>
-                     <div class="mt-2">
-                         <span class="output-label">Annual ROI (on Equipment Cost)</span>
-                         <p id="annualROI" class="output-value">N/A</p>
+
+                     <!-- ROI Metrics -->
+                     <div class="bg-amber-50 p-3 rounded-lg">
+                         <h4 class="text-sm font-semibold text-amber-800 mb-2 border-b border-amber-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            Return on Investment
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div>
+                                     <span class="text-xs font-medium text-gray-600">Simple Payback Period</span>
+                                     <p id="paybackPeriod" class="text-sm font-semibold text-indigo-900">N/A</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div>
+                                     <span class="text-xs font-medium text-gray-600">Annual ROI</span>
+                                     <p id="annualROI" class="text-sm font-semibold text-green-700">N/A</p>
+                                 </div>
+                             </div>
+                         </div>
                      </div>
                  </div>
              </div>
@@ -416,8 +607,13 @@
          </div>
         </div>
 
-        <div class="mt-10 bg-gradient-to-r from-amber-50 via-white to-amber-50 p-6 rounded-lg shadow-md border border-amber-200">
-            <h2 class="text-xl font-bold text-amber-800 mb-6 text-center">Customer Demand Analysis</h2>
+        <div class="mt-10 bg-gradient-to-r from-amber-100 via-white to-amber-100 p-6 rounded-lg shadow-md border border-amber-300">
+            <h2 class="text-2xl font-bold text-amber-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Market Opportunity & Customer Analysis
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
                     <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Customer Inputs</h3>
@@ -445,33 +641,41 @@
         </div>
 
         <div class="mt-10">
-            <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Visualization</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Business Performance Data Visualization
+            </h2>
             <div class="mb-2">
                 <div class="flex items-center justify-center mt-2">
                     <input id="lockYAxis" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                     <label for="lockYAxis" class="ml-2 text-sm text-gray-700">Lock Y-Axis Scale</label>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-4 justify-center mt-4">
-                <div class="flex items-center">
-                    <input id="showRevenue" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="0">
-                    <label for="showRevenue" class="ml-2 text-sm text-gray-700">Revenue</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="showCosts" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="1">
-                    <label for="showCosts" class="ml-2 text-sm text-gray-700">Total Costs</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="showProfit" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="2">
-                    <label for="showProfit" class="ml-2 text-sm text-gray-700">Net Profit</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="showBreakEven" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="3">
-                    <label for="showBreakEven" class="ml-2 text-sm text-gray-700">Break-Even Point</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="showMargin" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="4">
-                    <label for="showMargin" class="ml-2 text-sm text-gray-700">Profit Margin (%)</label>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 mb-3">Chart Controls</h3>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <div class="flex items-center bg-blue-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showRevenue" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="0">
+                        <label for="showRevenue" class="ml-2 text-sm font-medium text-blue-700">Revenue</label>
+                    </div>
+                    <div class="flex items-center bg-red-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showCosts" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="1">
+                        <label for="showCosts" class="ml-2 text-sm font-medium text-red-700">Total Costs</label>
+                    </div>
+                    <div class="flex items-center bg-green-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showProfit" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="2">
+                        <label for="showProfit" class="ml-2 text-sm font-medium text-green-700">Net Profit</label>
+                    </div>
+                    <div class="flex items-center bg-orange-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showBreakEven" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="3">
+                        <label for="showBreakEven" class="ml-2 text-sm font-medium text-orange-700">Break-Even Point</label>
+                    </div>
+                    <div class="flex items-center bg-purple-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showMargin" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="4">
+                        <label for="showMargin" class="ml-2 text-sm font-medium text-purple-700">Profit Margin (%)</label>
+                    </div>
                 </div>
             </div>
 
@@ -535,36 +739,52 @@
                             label: 'Monthly Revenue', 
                             data: [], 
                             borderColor: 'rgb(54, 162, 235)', 
-                            tension: 0.1 
+                            backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgb(54, 162, 235)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         },
                         { 
                             label: 'Total Monthly Costs', 
                             data: [], 
                             borderColor: 'rgb(255, 99, 132)', 
-                            tension: 0.1 
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgb(255, 99, 132)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         },
                         { 
                             label: 'Monthly Net Profit', 
                             data: [], 
                             borderColor: 'rgb(75, 192, 192)', 
-                            backgroundColor: 'rgba(75, 192, 192, 0.1)', 
-                            tension: 0.1, 
-                            fill: true 
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+                            borderWidth: 3,
+                            tension: 0.2, 
+                            fill: true,
+                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         },
                         {
                             label: 'Break-Even Point',
                             data: [],
                             borderColor: 'rgba(255, 159, 64, 0.8)',
                             borderWidth: 2,
-                            borderDash: [5, 5],
+                            borderDash: [6, 6],
                             pointRadius: 0
                         },
                         {
                             label: 'Net Profit Margin (%)',
                             data: [],
                             borderColor: 'rgba(153, 102, 255, 1)',
-                            borderWidth: 2,
-                            pointRadius: 2,
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
                             yAxisID: 'y1'
                         }
                     ]
@@ -907,14 +1127,14 @@
             const grossMargin = totalMonthlyRevenue > 0 ? monthlyGrossProfit / totalMonthlyRevenue : 0;
             const totalFixedCosts = totalMonthlyFixedCosts_Chart;
             const totalFixedWithFinancing = totalFixedCosts + monthlyLoanPayment;
-            
+
             // Update display elements
             $('annualRevenue').textContent = formatCurrency(annualRevenue);
             $('grossMargin').textContent = formatPercent(grossMargin);
             $('totalVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
             $('totalFixedCosts').textContent = formatCurrency(totalFixedCosts);
             $('totalFixedWithFinancing').textContent = formatCurrency(totalFixedWithFinancing);
-            
+
             // Update individual cost components
             $('totalMonthlyEnergyCost').textContent = formatCurrency(monthlyEnergyCost);
             $('totalMonthlyWaterCost').textContent = formatCurrency(monthlyWaterCost);
@@ -928,7 +1148,7 @@
             // Update cost classification breakdown
             const totalVariableCostsBreakdown = monthlyEnergyCost + monthlyWaterCost + monthlyPackagingCost + monthlyDistributionCost;
             const totalFixedOpCostsBreakdown = totalMonthlyLaborCost + monthlyRent + monthlyInsurance + totalMonthlyMaintenance;
-            
+
             $('totalVariableCostsBreakdown').textContent = formatCurrency(totalVariableCostsBreakdown);
             $('totalFixedOpCostsBreakdown').textContent = formatCurrency(totalFixedOpCostsBreakdown);
             $('financingCostsBreakdown').textContent = formatCurrency(monthlyLoanPayment);
@@ -985,9 +1205,26 @@
             input.addEventListener('change', calculateModel);
         });
 
-        // Slider event
+        // Slider event with visual feedback
         $('numMachines').addEventListener('input', () => {
-            $('numMachinesValue').textContent = $('numMachines').value;
+            const value = $('numMachines').value;
+            $('numMachinesValue').textContent = value;
+
+            // Add visual feedback based on number of machines
+            const numMachines = parseInt(value);
+            let colorClass = 'text-blue-600';
+
+            if (numMachines >= 20) {
+                colorClass = 'text-green-600 font-bold';
+            } else if (numMachines >= 10) {
+                colorClass = 'text-green-500';
+            } else if (numMachines >= 5) {
+                colorClass = 'text-blue-600';
+            } else {
+                colorClass = 'text-indigo-600';
+            }
+
+            $('numMachinesValue').className = `text-sm ${colorClass} font-medium`;
         });
 
         // Mode switching
