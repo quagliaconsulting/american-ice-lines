@@ -247,8 +247,7 @@
 
                     <!-- Report Tab Content -->
                     <div id="report-content" class="hidden h-[800px] mb-4">
-                        <iframe src="https://docs.google.com/document/d/1LM9aO26Z7zUUzyQFmsLuhJXueni9or69whRge9H9MR0/preview" class="w-full h-full border-0"></iframe>
-                    </div>
+                        <p>Report content will be displayed here.</p> </div>
 
                     <!-- Financial Tab Content -->
                     <div id="financial-content" class="mb-4">
@@ -726,17 +725,21 @@
                     t.classList.remove('border-indigo-600', 'text-indigo-600');
                     t.classList.add('border-transparent');
                 });
-                
+
                 // Add active state to clicked tab
                 tab.classList.add('border-indigo-600', 'text-indigo-600');
                 tab.classList.remove('border-transparent');
-                
+
                 // Hide all content
                 document.getElementById('financial-content').classList.add('hidden');
                 document.getElementById('report-content').classList.add('hidden');
-                
+                document.getElementById('report-tab').classList.add('hidden');
+
                 // Show selected content
                 document.getElementById(`${tab.dataset.tab}-content`).classList.remove('hidden');
+                if (tab.dataset.tab === 'report') {
+                    document.getElementById('report-tab').classList.remove('hidden');
+                }
             });
         });
 
