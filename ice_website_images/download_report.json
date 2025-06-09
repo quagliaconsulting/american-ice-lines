@@ -1,0 +1,24 @@
+{
+  "summary": {
+    "total_images_needed": 21,
+    "successfully_downloaded": 21,
+    "success_rate": "100.0%"
+  },
+  "directory_structure": {
+    "base_directory": "ice_website_images",
+    "subdirectories": {
+      "products": "ice_website_images/products",
+      "business": "ice_website_images/business",
+      "events": "ice_website_images/events",
+      "team": "ice_website_images/team",
+      "sustainability": "ice_website_images/sustainability"
+    }
+  },
+  "next_steps": [
+    "Review downloaded images for quality and suitability",
+    "Replace any images that don't meet your needs",
+    "Resize images if needed for web optimization",
+    "Consider hiring a photographer for custom team photos",
+    "Add alt text and optimize images for web use"
+  ]
+}

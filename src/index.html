@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMT300 Premium Craft Ice | ROI & Financial Analysis Tool</title>
+    <meta name="description" content="Interactive financial model for IMT300 craft ice business. Analyze ROI, break-even points, profit margins and market opportunities.">
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <style>
+        /* Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+        
+        /* Transitions for smoother UX */
+        .tab-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Loading animation for iframe */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        #iframe-loading.opacity-0 {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            background-image: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Custom Tailwind component styles */
+        .input-label { @apply block text-sm font-medium text-gray-700 mb-1; }
+        .input-field { @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm; }
+        .input-select { @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white py-2 px-3; }
+        .output-label { @apply text-sm font-medium text-gray-500; }
+        .output-value { @apply mt-1 text-lg font-semibold text-gray-900; }
+        .output-value-profit { @apply mt-1 text-lg font-semibold text-green-700; }
+        .output-value-loss { @apply mt-1 text-lg font-semibold text-red-700; }
+        .radio-label { @apply ml-2 block text-sm text-gray-900; }
+        /* ## Chart container height slightly reduced ## */
+        .chart-container { 
+            @apply bg-white p-4 pb-8 rounded-lg shadow border border-gray-100 mt-6;
+            position: relative;
+            min-height: 300px;
+            height: 45vh;
+            max-height: 550px;
+        }
+        .help-text { @apply text-xs text-gray-500; }
+        .warning-text { @apply text-xs font-semibold text-red-600; }
+
+        /* Slider thumb styling */
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #4f46e5; cursor: pointer; border-radius: 50%;
+        }
+        input[type=range]::-moz-range-thumb {
+          width: 20px; height: 20px; background: #4f46e5; cursor: pointer; border-radius: 50%; border: none;
+        }
+        /* Class to hide elements */
+        .hidden-smooth { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg border-t-4 border-indigo-600">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">IMT300 Premium Craft Ice <span class="text-indigo-600">Business ROI Model</span></h1>
+        <p class="text-center text-gray-600 mb-6">Optimize your ice business investment with our interactive financial analysis tool. Customize parameters to see real-time projections and ROI calculations.</p>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-6 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 p-4 rounded-lg border border-indigo-300 shadow-md">
+            <ul class="flex flex-wrap -mb-px text-md font-medium text-center justify-center" role="tablist">
+                <li class="mr-4" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-indigo-800 hover:border-indigo-300 border-indigo-600 text-indigo-600 transition-all duration-200 transform hover:scale-105" id="financial-tab" data-tab="financial" type="button" role="tab">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Financial Analysis
+                    </button>
+                </li>
+                <li class="ml-4" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-800 hover:border-indigo-300 transition-all duration-200 transform hover:scale-105" id="report-tab" data-tab="report" type="button" role="tab">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m-6-8h6m-6 8h6m-6-8h6M9 20h6M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        </svg>
+                        Market Research Report
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Report Tab Content -->
+        <div id="report-content" class="hidden">
+            <div class="bg-gradient-to-b from-blue-50 to-white p-6 rounded-lg shadow-lg border border-blue-200 mb-6">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    Premium Craft Ice Market Research Report
+                </h2>
+                <p class="text-center text-blue-600 mb-6">Comprehensive market analysis and industry insights for premium craft ice business opportunities</p>
+                <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                    <iframe id="google-doc-report" class="w-full h-[800px] border-0 rounded" src="https://docs.google.com/document/d/e/2PACX-1vQ8E-v0JTAnBlwnk9THZVSZYyO4U1027N3nZNshZqZ6gI3D6JSdkMWrEA_WIYchVF-YzxfrsSoHpdTS/pub?embedded=true"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Analysis Tab Content -->
+        <div id="financial-content">
+            <div class="mb-6 p-5 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 rounded-lg border border-indigo-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Business Planning Mode</h2>
+            <div class="flex justify-center space-x-6">
+                <div class="flex items-center bg-white p-2 rounded-lg shadow-sm border border-indigo-100 transition-all hover:shadow-md">
+                    <input id="modeMachines" name="calcMode" type="radio" value="machines" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="modeMachines" class="radio-label font-medium">Capital Investment <span class="text-xs text-gray-500">(Scale by Machine Count)</span></label>
+                </div>
+                <div class="flex items-center bg-white p-2 rounded-lg shadow-sm border border-indigo-100 transition-all hover:shadow-md">
+                    <input id="modeDemand" name="calcMode" type="radio" value="demand" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="modeDemand" class="radio-label font-medium">Market Demand <span class="text-xs text-gray-500">(Scale by Monthly Units)</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="space-y-4 p-4 bg-gradient-to-b from-blue-50 to-white rounded-lg border border-blue-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-blue-800 border-b border-blue-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Core Business Parameters
+                </h2>
+                <div id="inputNumMachinesContainer">
+                    <label for="numMachines" class="input-label">Number of Ice Machines</label>
+                    <input type="range" id="numMachines" min="1" max="50" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700 input-field">
+                    <span id="numMachinesValue" class="text-sm text-indigo-600 font-medium">1</span>
+                </div>
+                <div id="inputDemandContainer" class="hidden-smooth">
+                    <label for="targetMonthlyDemand" class="input-label">Target Monthly Demand (Units)</label>
+                    <input type="number" id="targetMonthlyDemand" value="100800" step="1000" min="0" class="input-field">
+                    <p class="help-text mt-1">Model will calculate required machines.</p>
+                    <p id="calculatedMachinesText" class="text-sm text-indigo-600 font-medium mt-1"></p>
+                </div>
+                <hr>
+                 <div>
+                    <label for="iceShape" class="input-label">Ice Shape (IMT300 Capacity)</label>
+                    <select id="iceShape" class="input-select">
+                        <option value="cube" data-capacity="120">Cube 55mm (120/cycle)</option>
+                        <option value="sphere_small" data-capacity="100">Sphere 60mm (100/cycle)</option>
+                        <option value="sphere_large" data-capacity="64">Sphere 75mm (64/cycle)</option>
+                        <option value="bar" data-capacity="96">Collins Bar (96/cycle)</option>
+                        <option value="diamond" data-capacity="120">Diamond (120/cycle)</option>
+                    </select>
+                 </div>
+                 <div>
+                    <label for="sellingPrice" class="input-label">Selling Price per Ice Unit ($)</label>
+                    <input type="number" id="sellingPrice" value="0.99" step="0.01" min="0" class="input-field">
+                </div>
+                 <div>
+                    <label for="daysOperating" class="input-label">Days Operating per Month</label>
+                    <input type="number" id="daysOperating" value="30" step="1" min="1" max="31" class="input-field">
+                </div>
+                 <div>
+                    <label for="laborHoursPerDay" class="input-label">Total Daily Labor Hours Needed</label>
+                    <input type="number" id="laborHoursPerDay" value="24" step="0.5" min="0" class="input-field">
+                    <span class="help-text">Incl. harvesting, bagging, cleaning per cycle, sales etc.</span>
+                 </div>
+                 <div>
+                    <label for="laborCostPerHour" class="input-label">Labor Cost per Hour ($)</label>
+                    <input type="number" id="laborCostPerHour" value="18.00" step="0.50" min="0" class="input-field">
+                </div>
+            </div>
+
+            <div class="space-y-4 p-4 bg-gradient-to-b from-green-50 to-white rounded-lg border border-green-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-green-800 border-b border-green-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Operating & Variable Expenses
+                </h2>
+                 <div>
+                    <label for="machineCost" class="input-label">Cost per IMT300 Machine ($)</label>
+                    <input type="number" id="machineCost" value="5000" step="100" min="0" class="input-field">
+                    <span class="warning-text">Verify actual IMT300 price! Estimate used.</span>
+                 </div>
+                 <div>
+                    <label for="cycleTime" class="input-label">Ice Making Cycle Time (hours)</label>
+                    <input type="number" id="cycleTime" value="24" step="0.5" min="1" class="input-field">
+                    <span class="help-text">IMT300: 24-28h (&lt;25°C), 32-36h (&gt;25°C)</span>
+                 </div>
+                 <div>
+                    <label for="waterPerCycle" class="input-label">Water Use per Cycle (Gallons)</label>
+                    <input type="number" id="waterPerCycle" value="7.9" step="0.1" min="0" class="input-field">
+                    <span class="help-text">IMT300 Manual: 30 Liters ≈ 7.9 Gal</span>
+                 </div>
+                 <div>
+                    <label for="waterRate" class="input-label">Water Rate ($/Gallon)</label>
+                    <input type="number" id="waterRate" value="0.012" step="0.001" min="0" class="input-field">
+                    <span class="help-text">Est. Livonia, MI rate (incl. sewer) - verify locally.</span>
+                 </div>
+                 <hr>
+                 <div>
+                    <label for="iceMakingPower" class="input-label">Ice Making Power (Watts)</label>
+                    <input type="number" id="iceMakingPower" value="600" step="10" min="0" class="input-field">
+                    <span class="help-text">Avg. power during making phase. (IMT300 Manual: 600W @ 110-120V).</span>
+                 </div>
+                 <div>
+                    <label for="iceDetachingPower" class="input-label">Ice Detaching Power (Watts)</label>
+                    <input type="number" id="iceDetachingPower" value="1200" step="10" min="0" class="input-field">
+                    <span class="help-text">Avg. power during detaching phase. (IMT300 Manual: 1200W @ 110-120V).</span>
+                 </div>
+                 <div>
+                    <label for="detachingDuration" class="input-label">Detaching Phase Duration (hours per cycle)</label>
+                    <input type="number" id="detachingDuration" value="1" step="0.1" min="0.1" class="input-field">
+                    <span class="help-text">Estimate - adjust as needed.</span>
+                 </div>
+                 <p class="help-text mt-1">Note: Specs list 2800W total power, likely peak. This model uses making/detaching phases for average energy calculation.</p>
+                 <div>
+                    <label for="electricityRate" class="input-label">Electricity Rate ($/kWh)</label>
+                    <input type="number" id="electricityRate" value="0.16" step="0.01" min="0" class="input-field">
+                    <span class="help-text">Est. Livonia, MI commercial rate - verify locally.</span>
+                 </div>
+                 <hr>
+                 <div>
+                    <label for="packagingCostUnit" class="input-label">Packaging Cost per Ice Unit ($)</label>
+                    <input type="number" id="packagingCostUnit" value="0.05" step="0.01" min="0" class="input-field">
+                 </div>
+                 <div>
+                    <label for="distributionCostUnit" class="input-label">Distribution Cost per Ice Unit ($)</label>
+                    <input type="number" id="distributionCostUnit" value="0.10" step="0.01" min="0" class="input-field">
+                 </div>
+            </div>
+
+            <div class="space-y-4 p-4 bg-gradient-to-b from-purple-50 to-white rounded-lg border border-purple-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-purple-800 border-b border-purple-100 pb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Fixed Costs & Financing
+                </h2>
+                 <div>
+                    <label for="monthlyMaintenancePerMachine" class="input-label">Monthly Maintenance per Machine ($)</label>
+                    <input type="number" id="monthlyMaintenancePerMachine" value="50" step="5" min="0" class="input-field">
+                    <span class="help-text">Estimate - may be higher for IMT300.</span>
+                 </div>
+                 <div>
+                    <label for="monthlyRent" class="input-label">Monthly Rent / Overhead ($)</label>
+                    <input type="number" id="monthlyRent" value="5000" step="5000" min="0" class="input-field">
+                 </div>
+                 <div>
+                    <label for="monthlyInsurance" class="input-label">Monthly Insurance ($)</label>
+                    <input type="number" id="monthlyInsurance" value="500" step="10" min="0" class="input-field">
+                 </div>
+                 <hr class="my-4">
+                 <h3 class="text-md font-semibold text-gray-600">Device Financing</h3>
+                 <div>
+                    <label for="downPaymentPercent" class="input-label">Down Payment (%)</label>
+                    <input type="number" id="downPaymentPercent" value="10" step="1" min="0" max="100" class="input-field">
+                 </div>
+                 <div>
+                    <label for="loanTermYears" class="input-label">Loan Term (Years)</label>
+                    <input type="number" id="loanTermYears" value="4" step="1" min="1" class="input-field">
+                 </div>
+                 <div>
+                    <label for="interestRate" class="input-label">Annual Interest Rate (APR %)</label>
+                    <input type="number" id="interestRate" value="8.0" step="0.1" min="0" class="input-field">
+                 </div>
+            </div>
+        </div>
+
+        <div class="mt-10 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 p-6 rounded-lg shadow-md border border-indigo-300">
+             <h2 class="text-2xl font-bold text-indigo-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Financial Performance & ROI Analysis
+             </h2>
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Key Performance Indicators (KPIs)</h3>
+                     <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
+                     <div id="displayProductionRate" class="mb-4 text-sm text-gray-600"></div>
+
+                     <!-- Performance Tab Content -->
+                    <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Revenue Metrics</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Monthly Revenue</span>
+                                 <p id="totalMonthlyRevenue" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Annual Revenue</span>
+                                 <p id="annualRevenue" class="output-value text-xl">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Profit Metrics -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Profitability</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Gross Profit</span>
+                                 <p id="monthlyGrossProfit" class="output-value text-xl">$0.00</p>
+                                 <span class="text-xs text-gray-500">(before financing)</span>
+                             </div>
+                             <div>
+                                 <span class="output-label">Net Profit</span>
+                                 <p id="monthlyNetProfit" class="output-value text-xl">$0.00</p>
+                                 <span class="text-xs text-gray-500">(monthly)</span>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Margin Analysis -->
+                     <div>
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Margin Analysis</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Gross Margin</span>
+                                 <p id="grossMargin" class="output-value">0.00%</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Net Margin</span>
+                                 <p id="netProfitMargin" class="output-value">0.00%</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Cost Structure Analysis</h3>
+
+                     <!-- Variable Costs -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Variable Costs</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Total Variable Costs</span>
+                                 <p id="totalVariableCosts" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Per Unit</span>
+                                 <p id="variableCostPerUnit" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Fixed Costs -->
+                     <div class="mb-4">
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Fixed Costs</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Monthly Fixed Costs</span>
+                                 <p id="totalFixedCosts" class="output-value text-xl">$0.00</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Including Financing</span>
+                                 <p id="totalFixedWithFinancing" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Break-Even Analysis -->
+                     <div>
+                         <h4 class="text-md font-semibold text-indigo-600 mb-2">Break-Even Analysis</h4>
+                         <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                 <span class="output-label">Break-Even Units</span>
+                                 <p id="breakEvenUnits" class="output-value">0</p>
+                             </div>
+                             <div>
+                                 <span class="output-label">Break-Even Revenue</span>
+                                 <p id="breakEvenRevenue" class="output-value">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        Monthly Cost Structure
+                    </h3>
+
+                    <!-- Direct Costs Section -->
+                    <div class="bg-blue-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-blue-800 mb-2 border-b border-blue-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                            Production & Materials
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Energy</span>
+                                    <p id="totalMonthlyEnergyCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Water</span>
+                                    <p id="totalMonthlyWaterCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Packaging</span>
+                                    <p id="totalMonthlyPackagingCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Distribution</span>
+                                    <p id="totalMonthlyDistributionCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fixed Costs Section -->
+                    <div class="bg-purple-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-purple-800 mb-2 border-b border-purple-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            Business Operations
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Labor</span>
+                                    <p id="totalMonthlyLaborCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Facility Rent</span>
+                                    <p id="monthlyRentCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Insurance</span>
+                                    <p id="monthlyInsuranceCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2 rounded shadow-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-medium text-gray-600">Maintenance</span>
+                                    <p id="totalMaintenanceCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financing Section -->
+                    <div class="bg-green-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-green-800 mb-2 border-b border-green-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Financing
+                        </h4>
+                        <div class="bg-white p-2 rounded shadow-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-medium text-gray-600">Monthly Loan Payment</span>
+                                <p id="monthlyLoanPayment" class="text-sm font-semibold text-gray-900">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Classification Summary -->
+                    <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                        <h4 class="text-sm font-semibold text-gray-800 mb-3 border-b border-gray-200 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            Cost Classification
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 p-2 rounded-md border border-blue-100">
+                                <p class="text-xs font-medium text-blue-800 mb-1">Total Variable Costs</p>
+                                <p class="text-xs text-blue-600 mb-1">(Energy + Water + Packaging + Distribution)</p>
+                                <p id="totalVariableCostsBreakdown" class="text-base font-bold text-blue-900">$0.00</p>
+                            </div>
+                            <div class="bg-purple-50 p-2 rounded-md border border-purple-100">
+                                <p class="text-xs font-medium text-purple-800 mb-1">Total Fixed Operating Costs</p>
+                                <p class="text-xs text-purple-600 mb-1">(Labor + Rent + Insurance + Maintenance)</p>
+                                <p id="totalFixedOpCostsBreakdown" class="text-base font-bold text-purple-900">$0.00</p>
+                            </div>
+                            <div class="bg-green-50 p-2 rounded-md border border-green-100">
+                                <p class="text-xs font-medium text-green-800 mb-1">Financing Costs</p>
+                                <p id="financingCostsBreakdown" class="text-base font-bold text-green-900">$0.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Costs -->
+                    <div class="bg-indigo-100 p-3 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-sm font-bold text-indigo-900">TOTAL MONTHLY COSTS</h4>
+                            <p id="totalMonthlyCosts" class="text-lg font-bold text-indigo-900">$0.00</p>
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Performance Metrics & Indicators
+                     </h3>
+
+                     <div class="grid grid-cols-2 gap-4">
+                         <!-- Cost Metrics -->
+                         <div class="bg-amber-50 p-3 rounded-lg">
+                             <h4 class="text-sm font-semibold text-amber-800 mb-2 border-b border-amber-100 pb-1 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Unit Economics
+                             </h4>
+                             <div class="space-y-3">
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Variable Cost per Unit</span>
+                                         <p id="variableCostPerUnit" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                     </div>
+                                 </div>
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Total Cost per Unit</span>
+                                         <p id="totalCostPerUnit" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <!-- Profitability Metrics -->
+                         <div class="bg-green-50 p-3 rounded-lg">
+                             <h4 class="text-sm font-semibold text-green-800 mb-2 border-b border-green-100 pb-1 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                                Profitability
+                             </h4>
+                             <div class="space-y-3">
+                                 <div class="bg-white p-2 rounded shadow-sm">
+                                     <div class="flex justify-between items-center">
+                                         <span class="text-xs font-medium text-gray-600">Net Profit Margin</span>
+                                         <p id="netProfitMargin" class="text-sm font-semibold text-green-700">0.00%</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Break-Even Analysis -->
+                     <div class="mt-4 bg-blue-50 p-3 rounded-lg">
+                         <h4 class="text-sm font-semibold text-blue-800 mb-2 border-b border-blue-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                            </svg>
+                            Break-Even Analysis
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Break-Even Units</span>
+                                     <p id="breakEvenUnits" class="text-sm font-semibold text-gray-900">0</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Break-Even Revenue</span>
+                                     <p id="breakEvenRevenue" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                     <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Investment Analysis & ROI
+                     </h3>
+
+                     <!-- Capital Investment -->
+                     <div class="bg-indigo-50 p-3 rounded-lg mb-4">
+                         <h4 class="text-sm font-semibold text-indigo-800 mb-2 border-b border-indigo-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            Capital Requirements
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3 mb-2">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Total Equipment Cost</span>
+                                     <p id="totalEquipmentCost" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div class="flex justify-between items-center">
+                                     <span class="text-xs font-medium text-gray-600">Initial Down Payment</span>
+                                     <p id="initialDownPayment" class="text-sm font-semibold text-gray-900">$0.00</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="bg-white p-2 rounded shadow-sm">
+                             <div class="flex justify-between items-center">
+                                 <span class="text-xs font-medium text-gray-600">Total Amount Financed</span>
+                                 <p id="totalLoanAmount" class="text-sm font-semibold text-gray-900">$0.00</p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- ROI Metrics -->
+                     <div class="bg-amber-50 p-3 rounded-lg">
+                         <h4 class="text-sm font-semibold text-amber-800 mb-2 border-b border-amber-100 pb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            Return on Investment
+                         </h4>
+                         <div class="grid grid-cols-2 gap-3">
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div>
+                                     <span class="text-xs font-medium text-gray-600">Simple Payback Period</span>
+                                     <p id="paybackPeriod" class="text-sm font-semibold text-indigo-900">N/A</p>
+                                 </div>
+                             </div>
+                             <div class="bg-white p-2 rounded shadow-sm">
+                                 <div>
+                                     <span class="text-xs font-medium text-gray-600">Annual ROI</span>
+                                     <p id="annualROI" class="text-sm font-semibold text-green-700">N/A</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="mt-6 text-center text-sm text-gray-600">
+              <p><strong class="font-semibold text-indigo-700">Cash Flow Note:</strong> To stay cash flow positive early, ensure your revenue significantly exceeds the sum of Variable Costs, Labor, Fixed Costs (Rent, Ins, Maint), and the Monthly Loan Payment. See chart below for trends.</p>
+         </div>
+        </div>
+
+        <div class="mt-10 bg-gradient-to-r from-amber-100 via-white to-amber-100 p-6 rounded-lg shadow-md border border-amber-300">
+            <h2 class="text-2xl font-bold text-amber-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Market Opportunity & Customer Analysis
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Customer Inputs</h3>
+                    <div>
+                        <label for="avgCustomerDemand" class="input-label">Average Customer Monthly Demand (Units)</label>
+                        <input type="number" id="avgCustomerDemand" value="3200" step="100" min="0" class="input-field">
+                        <span class="help-text">Expected units per customer per month</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Required Customers</h3>
+                    <div>
+                        <span class="output-label">Customers Needed for Target</span>
+                        <p id="requiredCustomers" class="output-value">0</p>
+                        <span class="help-text">Number of customers needed to reach production target</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="output-label">Current Capacity Utilization</span>
+                        <p id="capacityUtilization" class="output-value">0%</p>
+                        <span class="help-text">How much of max capacity is utilized</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Business Performance Data Visualization
+            </h2>
+            <div class="mb-2">
+                <div class="flex items-center justify-center mt-2">
+                    <input id="lockYAxis" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                    <label for="lockYAxis" class="ml-2 text-sm text-gray-700">Lock Y-Axis Scale</label>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
+                <h3 class="text-sm font-semibold text-gray-600 mb-3">Chart Controls</h3>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <div class="flex items-center bg-blue-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showRevenue" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="0">
+                        <label for="showRevenue" class="ml-2 text-sm font-medium text-blue-700">Revenue</label>
+                    </div>
+                    <div class="flex items-center bg-red-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showCosts" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="1">
+                        <label for="showCosts" class="ml-2 text-sm font-medium text-red-700">Total Costs</label>
+                    </div>
+                    <div class="flex items-center bg-green-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showProfit" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="2">
+                        <label for="showProfit" class="ml-2 text-sm font-medium text-green-700">Net Profit</label>
+                    </div>
+                    <div class="flex items-center bg-orange-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showBreakEven" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="3">
+                        <label for="showBreakEven" class="ml-2 text-sm font-medium text-orange-700">Break-Even Point</label>
+                    </div>
+                    <div class="flex items-center bg-purple-50 px-3 py-2 rounded-md shadow-sm">
+                        <input id="showMargin" type="checkbox" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" data-index="4">
+                        <label for="showMargin" class="ml-2 text-sm font-medium text-purple-700">Profit Margin (%)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Revenue, Costs & Net Profit</h3>
+                    <canvas id="monthlyCashFlowChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Cost Breakdown</h3>
+                    <canvas id="costBreakdownChart"></canvas>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <div class="chart-container">
+                    <h3 class="text-md font-semibold text-gray-700 mb-3 text-center">Monthly Production Volume</h3>
+                    <canvas id="productionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Loading indicator for Google Doc iframe ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('google-doc-report');
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'iframe-loading';
+            loadingIndicator.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+                    <p class="mt-4 text-blue-600 font-medium">Loading Market Research Report...</p>
+                </div>
+            `;
+            loadingIndicator.className = 'absolute inset-0 bg-white flex items-center justify-center z-10';
+            
+            // Insert loading indicator
+            const iframeContainer = iframe.parentNode;
+            iframeContainer.style.position = 'relative';
+            iframeContainer.insertBefore(loadingIndicator, iframe);
+            
+            // Remove loading indicator when iframe is loaded
+            iframe.onload = function() {
+                const loader = document.getElementById('iframe-loading');
+                if (loader) {
+                    loader.classList.add('opacity-0');
+                    setTimeout(() => {
+                        loader.remove();
+                    }, 500);
+                }
+            };
+        });
+        
+        // --- Load Environment Variables ---
+        // This is optional if you want to load the Google Doc URL from .env
+        // For a static HTML file, we've hardcoded the URL directly in the iframe
+        
+        // --- Tab Switching Logic ---
+        document.querySelectorAll('[role="tab"]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active state from all tabs
+                document.querySelectorAll('[role="tab"]').forEach(t => {
+                    t.classList.remove('border-indigo-600', 'text-indigo-600');
+                    t.classList.add('border-transparent');
+                });
+
+                // Add active state to clicked tab
+                tab.classList.add('border-indigo-600', 'text-indigo-600');
+                tab.classList.remove('border-transparent');
+
+                // Hide all content
+                document.getElementById('financial-content').classList.add('hidden');
+                document.getElementById('report-content').classList.add('hidden');
+
+                // Show selected content
+                document.getElementById(`${tab.dataset.tab}-content`).classList.remove('hidden');
+            });
+        });
+
+        // --- Chart Instances ---
+        let monthlyCashFlowChartInstance = null;
+        let costBreakdownChartInstance = null;
+        let productionChartInstance = null;
+
+        // --- Y-Axis Scale Locking Variables ---
+        let lockYAxisScale = false;
+        let lockedYMax = 0;
+
+        // --- Helper Functions ---
+        const $ = (selector) => document.getElementById(selector);
+        const formatCurrency = (value) => isNaN(value) ? '$0.00' : value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const formatPercent = (value) => isNaN(value) ? '0.00%' : (value * 100).toFixed(2) + '%';
+        const formatNumber = (value, decimals = 0) => isNaN(value) ? '0' : value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+        // --- PMT Function ---
+        function calculatePMT(rate, nper, pv) {
+            if (rate === 0) return pv === 0 ? 0 : Math.abs(pv) / nper;
+            if (nper === 0) return 0;
+            if (pv === 0) return 0;
+            const pvif = Math.pow(1 + rate, nper);
+            if (pvif === 1) return Math.abs(pv) / nper;
+            return rate * Math.abs(pv) / (1 - Math.pow(1 + rate, -nper));
+        }
+
+        // --- Chart Initialization Function ---
+        function initializeNewCharts() {
+            // Initialize main cash flow chart
+            const monthlyCtx = $('monthlyCashFlowChart').getContext('2d');
+            monthlyCashFlowChartInstance = new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { 
+                            label: 'Monthly Revenue', 
+                            data: [], 
+                            borderColor: 'rgb(54, 162, 235)', 
+                            backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgb(54, 162, 235)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        { 
+                            label: 'Total Monthly Costs', 
+                            data: [], 
+                            borderColor: 'rgb(255, 99, 132)', 
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgb(255, 99, 132)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        { 
+                            label: 'Monthly Net Profit', 
+                            data: [], 
+                            borderColor: 'rgb(75, 192, 192)', 
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+                            borderWidth: 3,
+                            tension: 0.2, 
+                            fill: true,
+                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Break-Even Point',
+                            data: [],
+                            borderColor: 'rgba(255, 159, 64, 0.8)',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Net Profit Margin (%)',
+                            data: [],
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 3,
+                            tension: 0.2,
+                            pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Month' } },
+                        y: {
+                            position: 'left',
+                            title: { display: true, text: 'Amount ($)' },
+                            ticks: { callback: value => formatCurrency(value) }
+                            // suggestedMax and suggestedMin will be set dynamically in updateNewCharts
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Profit Margin (%)' },
+                            min: -50,
+                            max: 100,
+                            grid: { drawOnChartArea: false },
+                            ticks: { callback: value => `${value}%` }
+                        }
+                    },
+                    plugins: {
+                        tooltip: { 
+                            callbacks: { 
+                                label: (context) => {
+                                    if (context.dataset.yAxisID === 'y1') {
+                                        return `${context.dataset.label}: ${context.parsed.y}%`;
+                                    }
+                                    return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                } 
+                            } 
+                        },
+                        annotation: {
+                            annotations: {
+                                loanCompletionLine: {
+                                    type: 'line',
+                                    xMin: 0,
+                                    xMax: 0,
+                                    borderColor: 'green',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Loan Paid Off',
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initialize cost breakdown chart
+            const costBreakdownCtx = $('costBreakdownChart').getContext('2d');
+            costBreakdownChartInstance = new Chart(costBreakdownCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Variable Costs', 'Labor', 'Fixed Costs', 'Financing'],
+                    datasets: [{
+                        data: [0, 0, 0, 0],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const label = context.label || '';
+                                    const value = formatCurrency(context.raw || 0);
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((context.raw / total) * 100).toFixed(1) + '%' : '0%';
+                                    return `${label}: ${value} (${percentage})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initialize production volume chart
+            const productionCtx = $('productionChart').getContext('2d');            productionChartInstance = new Chart(productionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Production Volume',
+                        data: [],
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            bottom: 15
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                padding: 8
+                            }
+                        },
+                        y: {
+                            title: { display: true, text: 'Units Produced' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Chart Update Function ---
+        function updateNewCharts(chartData) {
+            const {
+                totalMonthlyUnitProduction,
+                sellingPrice,
+                variableCostPerUnit,
+                totalMonthlyLaborCost,
+                totalMonthlyFixedCosts, // Rent + Ins + Maint
+                monthlyLoanPayment,
+                breakEvenRevenue,
+                totalMonthlyVariableCosts,
+                loanTermMonths,
+                targetMonthlyDemand,
+                avgCustomerDemand
+            } = chartData;
+
+            const chartDurationMonths = Math.max(loanTermMonths || 0, 60);
+            const labels = Array.from({length: chartDurationMonths}, (_, i) => `Month ${i+1}`);
+            const monthlyRevenueData = [];
+            const monthlyTotalCostsData = [];
+            const monthlyNetProfitData = [];
+            const monthlyNetProfitMarginData = [];
+            const breakEvenData = Array(chartDurationMonths).fill(breakEvenRevenue);
+
+            // Start loop from month 1 for monthly chart
+            for (let month = 1; month <= chartDurationMonths; month++) {
+                const revenue = totalMonthlyUnitProduction * sellingPrice;
+                const variableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
+                const fixedOpCosts = totalMonthlyLaborCost + totalMonthlyFixedCosts;
+                const currentLoanPayment = (month <= loanTermMonths) ? monthlyLoanPayment : 0;
+                const totalCosts = variableCosts + fixedOpCosts + currentLoanPayment;
+                const netProfit = revenue - totalCosts;
+                const profitMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+
+                monthlyRevenueData.push(revenue);
+                monthlyTotalCostsData.push(totalCosts);
+                monthlyNetProfitData.push(netProfit);
+                monthlyNetProfitMarginData.push(profitMargin);
+            }
+
+            // --- Y-Axis Max Calculation ---
+            const buffer = 1.15; // Add 15% padding
+
+            // For Monthly Chart: Find the largest value among revenue and costs
+            const monthlyMaxRevenue = Math.max(...monthlyRevenueData, 0);
+            const monthlyMaxCosts = Math.max(...monthlyTotalCostsData, 0);
+            const monthlyOverallMax = Math.max(monthlyMaxRevenue, monthlyMaxCosts, breakEvenRevenue || 0);
+            const monthlySuggestedMax = monthlyOverallMax === 0 ? 100 : monthlyOverallMax * buffer; // Avoid 0 max
+
+            // Ensure the minimum is appropriate (usually 0 for monthly, unless large losses)
+            const monthlyMinProfit = Math.min(...monthlyNetProfitData, 0);
+            const monthlySuggestedMin = monthlyMinProfit < 0 ? monthlyMinProfit * buffer : 0; // Add buffer below zero if loss occurs
+
+            // --- Update Monthly Chart ---
+            if (monthlyCashFlowChartInstance) {
+                monthlyCashFlowChartInstance.data.labels = labels;
+                monthlyCashFlowChartInstance.data.datasets[0].data = monthlyRevenueData;
+                monthlyCashFlowChartInstance.data.datasets[1].data = monthlyTotalCostsData;
+                monthlyCashFlowChartInstance.data.datasets[2].data = monthlyNetProfitData;
+                monthlyCashFlowChartInstance.data.datasets[3].data = breakEvenData;
+                monthlyCashFlowChartInstance.data.datasets[4].data = monthlyNetProfitMarginData;
+
+                // Update the loan completion line annotation
+                if (loanTermMonths > 0) {
+                    monthlyCashFlowChartInstance.options.plugins.annotation.annotations.loanCompletionLine.xMin = loanTermMonths - 1;
+                    monthlyCashFlowChartInstance.options.plugins.annotation.annotations.loanCompletionLine.xMax = loanTermMonths - 1;
+                }
+
+                // Handle Y-axis scaling with lock feature
+                if (lockYAxisScale && lockedYMax > 0) {
+                    monthlyCashFlowChartInstance.options.scales.y.max = lockedYMax;
+                    monthlyCashFlowChartInstance.options.scales.y.min = monthlySuggestedMin;
+                } else {
+                    monthlyCashFlowChartInstance.options.scales.y.suggestedMax = monthlySuggestedMax;
+                    monthlyCashFlowChartInstance.options.scales.y.suggestedMin = monthlySuggestedMin;
+                    // Update the locked value if needed
+                    if (lockYAxisScale) {
+                        lockedYMax = monthlySuggestedMax;
+                    }
+                }
+
+                monthlyCashFlowChartInstance.update();
+            }
+
+            // Update cost breakdown chart
+            if (costBreakdownChartInstance) {
+                costBreakdownChartInstance.data.datasets[0].data = [
+                    totalMonthlyVariableCosts,
+                    totalMonthlyLaborCost,
+                    totalMonthlyFixedCosts,
+                    monthlyLoanPayment
+                ];
+                costBreakdownChartInstance.update();
+            }
+
+            // Update production chart
+            if (productionChartInstance) {
+                productionChartInstance.data.labels = labels.slice(0, 12); // First year only
+                productionChartInstance.data.datasets[0].data = Array(12).fill(totalMonthlyUnitProduction);
+                productionChartInstance.update();
+            }
+        }
+
+
+        // --- Main Calculation Function ---
+        function calculateModel() {
+            const selectedMode = document.querySelector('input[name="calcMode"]:checked').value;
+            let numMachines = 0;
+            const iceShapeSelect = $('iceShape');
+            const selectedOption = iceShapeSelect.options[iceShapeSelect.selectedIndex];
+            const unitsPerCycle = parseFloat(selectedOption.getAttribute('data-capacity')) || 0;
+            const sellingPrice = parseFloat($('sellingPrice').value) || 0;
+            const daysOperating = parseFloat($('daysOperating').value) || 30;
+            const laborHoursPerDay = parseFloat($('laborHoursPerDay').value) || 0;
+            const laborCostPerHour = parseFloat($('laborCostPerHour').value) || 0;
+            const machineCost = parseFloat($('machineCost').value) || 0;
+            const cycleTime = parseFloat($('cycleTime').value) || 24;
+            const waterPerCycle = parseFloat($('waterPerCycle').value) || 0;
+            const waterRate = parseFloat($('waterRate').value) || 0;
+            const iceMakingPower = parseFloat($('iceMakingPower').value) || 0;
+            const iceDetachingPower = parseFloat($('iceDetachingPower').value) || 0;
+            const detachingDuration = parseFloat($('detachingDuration').value) || 0;
+            const electricityRate = parseFloat($('electricityRate').value) || 0;
+            const packagingCostUnit = parseFloat($('packagingCostUnit').value) || 0;
+            const monthlyMaintenancePerMachine = parseFloat($('monthlyMaintenancePerMachine').value) || 0;
+            const monthlyRent = parseFloat($('monthlyRent').value) || 0;
+            const monthlyInsurance = parseFloat($('monthlyInsurance').value) || 0;
+            const downPaymentPercent = (parseFloat($('downPaymentPercent').value) || 0) / 100;
+            const loanTermYears = parseFloat($('loanTermYears').value) || 0;
+            const interestRate = (parseFloat($('interestRate').value) || 0) / 100;
+            const avgCustomerDemand = parseFloat($('avgCustomerDemand').value) || 0;
+            let targetMonthlyDemand = 0;
+
+            let totalMonthlyUnitProduction = 0;
+            let calculatedMachinesText = '';
+
+            const cyclesPerDay = cycleTime > 0 ? 24 / cycleTime : 0;
+            const maxUnitsPerMachineDay = unitsPerCycle * cyclesPerDay;
+            const makingDuration = Math.max(0, cycleTime - detachingDuration);
+            const energyPerCycle = ((iceMakingPower / 1000) * makingDuration) + ((iceDetachingPower / 1000) * detachingDuration);
+            const dailyEnergyPerMachine = energyPerCycle * cyclesPerDay;
+            const dailyWaterPerMachine = waterPerCycle * cyclesPerDay;
+            $('displayProductionRate').textContent = `Est. ${formatNumber(maxUnitsPerMachineDay, 1)} units/day/machine`;
+
+             if (selectedMode === 'machines') {
+                numMachines = parseFloat($('numMachines').value) || 0;
+                $('numMachinesValue').textContent = numMachines;
+                totalMonthlyUnitProduction = maxUnitsPerMachineDay * numMachines * daysOperating;
+                $('displayMachinesUsed').textContent = '';
+                $('calculatedMachinesText').textContent = '';
+                targetMonthlyDemand = totalMonthlyUnitProduction;
+            } else { // mode === 'demand'
+                targetMonthlyDemand = parseFloat($('targetMonthlyDemand').value) || 0;
+                const unitsPerMachineMonth = maxUnitsPerMachineDay * daysOperating;
+                if (unitsPerMachineMonth > 0) {
+                    numMachines = Math.ceil(targetMonthlyDemand / unitsPerMachineMonth);
+                } else {
+                    numMachines = 0;
+                }
+                const maxCapacity = unitsPerMachineMonth * numMachines;
+                totalMonthlyUnitProduction = Math.min(targetMonthlyDemand, maxCapacity);
+                calculatedMachinesText = `Requires approx. ${numMachines} machine(s).`;
+                $('calculatedMachinesText').textContent = calculatedMachinesText;
+                $('displayMachinesUsed').textContent = `(${numMachines} Machine(s) Calculated)`;
+            }
+
+            const energyCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyEnergyPerMachine * electricityRate) / maxUnitsPerMachineDay : 0;
+            const waterCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyWaterPerMachine * waterRate) / maxUnitsPerMachineDay : 0;
+            const distributionCostUnit = parseFloat($('distributionCostUnit').value) || 0;
+            const variableCostPerUnit = energyCostPerUnit + waterCostPerUnit + packagingCostUnit + distributionCostUnit;
+
+            const totalMonthlyRevenue = totalMonthlyUnitProduction * sellingPrice;
+            const totalMonthlyVariableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
+            const totalMonthlyLaborCost = laborHoursPerDay * laborCostPerHour * daysOperating;
+            const totalMonthlyMaintenance = monthlyMaintenancePerMachine * numMachines;
+            const totalMonthlyFixedCosts_Chart = monthlyRent + monthlyInsurance + totalMonthlyMaintenance;
+            const totalMonthlyOperatingCosts = totalMonthlyVariableCosts + totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart;
+            const monthlyGrossProfit = totalMonthlyRevenue - totalMonthlyVariableCosts;
+
+            const totalEquipmentCost = machineCost * numMachines;
+            const initialDownPayment = totalEquipmentCost * downPaymentPercent;
+            const totalLoanAmount = totalEquipmentCost - initialDownPayment;
+            const monthlyInterestRate = interestRate / 12;
+            const loanTermMonths = loanTermYears * 12;
+            const monthlyLoanPayment = (loanTermMonths > 0 && totalLoanAmount > 0) ? calculatePMT(monthlyInterestRate, loanTermMonths, totalLoanAmount) : 0;
+
+            const totalMonthlyCosts = totalMonthlyOperatingCosts + monthlyLoanPayment;
+            const monthlyNetProfit = totalMonthlyRevenue - totalMonthlyOperatingCosts - monthlyLoanPayment;
+            const annualNetProfit = monthlyNetProfit * 12;
+
+            const totalCostPerUnit = totalMonthlyUnitProduction > 0 ? totalMonthlyCosts / totalMonthlyUnitProduction : 0;
+            const netProfitMargin = totalMonthlyRevenue > 0 ? monthlyNetProfit / totalMonthlyRevenue : 0;
+
+            const profitPerUnitMargin = sellingPrice - variableCostPerUnit;
+            const totalMonthlyFixedForBreakEven = totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart + monthlyLoanPayment;
+            const breakEvenUnits = profitPerUnitMargin > 0 ? totalMonthlyFixedForBreakEven / profitPerUnitMargin : Infinity;
+            const breakEvenRevenue = breakEvenUnits === Infinity ? Infinity : breakEvenUnits * sellingPrice;
+
+            const requiredCustomers = avgCustomerDemand > 0 ? Math.ceil(targetMonthlyDemand / avgCustomerDemand) : 0;
+            // Calculate capacity utilization (as decimal, then convert to percentage)
+            const maxMonthlyCapacity = maxUnitsPerMachineDay * numMachines * daysOperating;
+            const capacityUtilization = maxMonthlyCapacity > 0 ? (totalMonthlyUnitProduction / maxMonthlyCapacity) : 0;
+
+            const paybackPeriod = (annualNetProfit > 0 && totalEquipmentCost > 0) ? totalEquipmentCost / annualNetProfit : Infinity;
+            const annualROI = (totalEquipmentCost > 0) ? annualNetProfit / totalEquipmentCost : Infinity;
+
+            // Calculate individual variable costs
+            const monthlyEnergyCost = totalMonthlyUnitProduction * energyCostPerUnit;
+            const monthlyWaterCost = totalMonthlyUnitProduction * waterCostPerUnit;
+            const monthlyPackagingCost = totalMonthlyUnitProduction * packagingCostUnit;
+            const monthlyDistributionCost = totalMonthlyUnitProduction * distributionCostUnit;
+
+            // --- Update Output Fields ---
+            $('totalMonthlyRevenue').textContent = formatCurrency(totalMonthlyRevenue);
+            $('monthlyGrossProfit').textContent = formatCurrency(monthlyGrossProfit);
+            const netProfitElement = $('monthlyNetProfit');
+            netProfitElement.textContent = formatCurrency(monthlyNetProfit);
+            netProfitElement.className = monthlyNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+            // Update MBA-style metrics
+            const annualRevenue = totalMonthlyRevenue * 12;
+            const grossMargin = totalMonthlyRevenue > 0 ? monthlyGrossProfit / totalMonthlyRevenue : 0;
+            const totalFixedCosts = totalMonthlyFixedCosts_Chart;
+            const totalFixedWithFinancing = totalFixedCosts + monthlyLoanPayment;
+
+            // Update display elements
+            $('annualRevenue').textContent = formatCurrency(annualRevenue);
+            $('grossMargin').textContent = formatPercent(grossMargin);
+            $('totalVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
+            $('totalFixedCosts').textContent = formatCurrency(totalFixedCosts);
+            $('totalFixedWithFinancing').textContent = formatCurrency(totalFixedWithFinancing);
+
+            // Update individual cost components
+            $('totalMonthlyEnergyCost').textContent = formatCurrency(monthlyEnergyCost);
+            $('totalMonthlyWaterCost').textContent = formatCurrency(monthlyWaterCost);
+            $('totalMonthlyPackagingCost').textContent = formatCurrency(monthlyPackagingCost);
+            $('totalMonthlyDistributionCost').textContent = formatCurrency(monthlyDistributionCost);
+            $('totalMonthlyLaborCost').textContent = formatCurrency(totalMonthlyLaborCost);
+            $('monthlyRentCost').textContent = formatCurrency(monthlyRent);
+            $('monthlyInsuranceCost').textContent = formatCurrency(monthlyInsurance);
+            $('totalMaintenanceCost').textContent = formatCurrency(totalMonthlyMaintenance);
+            $('monthlyLoanPayment').textContent = formatCurrency(monthlyLoanPayment);
+            // Update cost classification breakdown
+            const totalVariableCostsBreakdown = monthlyEnergyCost + monthlyWaterCost + monthlyPackagingCost + monthlyDistributionCost;
+            const totalFixedOpCostsBreakdown = totalMonthlyLaborCost + monthlyRent + monthlyInsurance + totalMonthlyMaintenance;
+
+            $('totalVariableCostsBreakdown').textContent = formatCurrency(totalVariableCostsBreakdown);
+            $('totalFixedOpCostsBreakdown').textContent = formatCurrency(totalFixedOpCostsBreakdown);
+            $('financingCostsBreakdown').textContent = formatCurrency(monthlyLoanPayment);
+            $('totalMonthlyCosts').textContent = formatCurrency(totalMonthlyCosts);
+            $('variableCostPerUnit').textContent = formatCurrency(variableCostPerUnit);
+            $('totalCostPerUnit').textContent = formatCurrency(totalCostPerUnit);
+            $('netProfitMargin').textContent = formatPercent(netProfitMargin);
+            $('breakEvenUnits').textContent = breakEvenUnits === Infinity ? 'N/A' : formatNumber(breakEvenUnits, 0);
+            $('breakEvenRevenue').textContent = breakEvenRevenue === Infinity ? 'N/A' : formatCurrency(breakEvenRevenue);
+            $('totalEquipmentCost').textContent = formatCurrency(totalEquipmentCost);
+            $('initialDownPayment').textContent = formatCurrency(initialDownPayment);
+            $('totalLoanAmount').textContent = formatCurrency(totalLoanAmount);
+            $('paybackPeriod').textContent = paybackPeriod === Infinity ? 'N/A (or negative profit)' : `${formatNumber(paybackPeriod, 2)} Years`;
+            $('annualROI').textContent = annualROI === Infinity ? 'N/A' : formatPercent(annualROI);
+            $('requiredCustomers').textContent = formatNumber(requiredCustomers, 0);
+            $('capacityUtilization').textContent = (capacityUtilization * 100).toFixed(1) + '%';
+
+            // --- Call Chart Update Function ---
+            updateNewCharts({
+                totalMonthlyUnitProduction,
+                sellingPrice,
+                variableCostPerUnit,
+                totalMonthlyLaborCost,
+                totalMonthlyFixedCosts: totalMonthlyFixedCosts_Chart,
+                monthlyLoanPayment,
+                breakEvenRevenue,
+                totalMonthlyVariableCosts,
+                loanTermMonths,
+                targetMonthlyDemand,
+                avgCustomerDemand
+             });
+        }
+
+         // --- Mode Switching Logic ---
+         function handleModeChange() {
+            const selectedMode = document.querySelector('input[name="calcMode"]:checked').value;
+            const machineInputDiv = $('inputNumMachinesContainer');
+            const demandInputDiv = $('inputDemandContainer');
+
+            if (selectedMode === 'machines') {
+                machineInputDiv.classList.remove('hidden-smooth');
+                demandInputDiv.classList.add('hidden-smooth');
+            } else {
+                machineInputDiv.classList.add('hidden-smooth');
+                demandInputDiv.classList.remove('hidden-smooth');
+            }
+            calculateModel();
+         }
+
+        // --- Event Listeners ---
+        const inputs = document.querySelectorAll('.input-field, .input-select');
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateModel);
+            input.addEventListener('change', calculateModel);
+        });
+
+        // Slider event with visual feedback
+        $('numMachines').addEventListener('input', () => {
+            const value = $('numMachines').value;
+            $('numMachinesValue').textContent = value;
+
+            // Add visual feedback based on number of machines
+            const numMachines = parseInt(value);
+            let colorClass = 'text-blue-600';
+
+            if (numMachines >= 20) {
+                colorClass = 'text-green-600 font-bold';
+            } else if (numMachines >= 10) {
+                colorClass = 'text-green-500';
+            } else if (numMachines >= 5) {
+                colorClass = 'text-blue-600';
+            } else {
+                colorClass = 'text-indigo-600';
+            }
+
+            $('numMachinesValue').className = `text-sm ${colorClass} font-medium`;
+        });
+
+        // Mode switching
+        document.querySelectorAll('input[name="calcMode"]').forEach(radio => {
+            radio.addEventListener('change', handleModeChange);
+        });
+
+        // Chart controls
+        $('lockYAxis').addEventListener('change', function() {
+            lockYAxisScale = this.checked;
+            calculateModel();
+        });
+
+        // Chart visibility toggles
+        document.querySelectorAll('[id^="show"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const index = parseInt(this.dataset.index);
+                if (!isNaN(index) && monthlyCashFlowChartInstance?.data?.datasets[index]) {
+                    monthlyCashFlowChartInstance.data.datasets[index].hidden = !this.checked;
+                    monthlyCashFlowChartInstance.update();
+                }
+            });
+        });
+
+        // --- Initial Calculation & Setup on Load ---
+        window.onload = () => {
+            initializeNewCharts();
+            handleModeChange();
+        };
+
+    </script>
+</body>
+</html>
