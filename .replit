@@ -21,7 +21,7 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "cloudrun"
-build = ["sh", "-c", "cd ice-website && npm run build"]
+build = ["sh", "-c", "cd ice-website && npm install && npm run build"]
 run = ["sh", "-c", "cd ice-website && npm run start"]
 
 
