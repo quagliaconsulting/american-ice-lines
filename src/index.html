@@ -13,6 +13,21 @@
         /* Inter font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+        
+        /* Transitions for smoother UX */
+        .tab-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Loading animation for iframe */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        #iframe-loading.opacity-0 {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -59,8 +74,48 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">IMT300 Premium Craft Ice <span class="text-indigo-600">Business ROI Model</span></h1>
         <p class="text-center text-gray-600 mb-6">Optimize your ice business investment with our interactive financial analysis tool. Customize parameters to see real-time projections and ROI calculations.</p>
 
-        <div class="mb-6 p-5 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 rounded-lg border border-indigo-200 shadow-sm">
-            <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Business Planning Mode</h2>
+        <!-- Main Tab Navigation -->
+        <div class="mb-6 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 p-4 rounded-lg border border-indigo-300 shadow-md">
+            <ul class="flex flex-wrap -mb-px text-md font-medium text-center justify-center" role="tablist">
+                <li class="mr-4" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-indigo-800 hover:border-indigo-300 border-indigo-600 text-indigo-600 transition-all duration-200 transform hover:scale-105" id="financial-tab" data-tab="financial" type="button" role="tab">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Financial Analysis
+                    </button>
+                </li>
+                <li class="ml-4" role="presentation">
+                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-indigo-800 hover:border-indigo-300 transition-all duration-200 transform hover:scale-105" id="report-tab" data-tab="report" type="button" role="tab">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m-6-8h6m-6 8h6m-6-8h6M9 20h6M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        </svg>
+                        Market Research Report
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Report Tab Content -->
+        <div id="report-content" class="hidden">
+            <div class="bg-gradient-to-b from-blue-50 to-white p-6 rounded-lg shadow-lg border border-blue-200 mb-6">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    Premium Craft Ice Market Research Report
+                </h2>
+                <p class="text-center text-blue-600 mb-6">Comprehensive market analysis and industry insights for premium craft ice business opportunities</p>
+                <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                    <iframe id="google-doc-report" class="w-full h-[800px] border-0 rounded" src="https://docs.google.com/document/d/e/2PACX-1vQ8E-v0JTAnBlwnk9THZVSZYyO4U1027N3nZNshZqZ6gI3D6JSdkMWrEA_WIYchVF-YzxfrsSoHpdTS/pub?embedded=true"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Analysis Tab Content -->
+        <div id="financial-content">
+            <div class="mb-6 p-5 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 rounded-lg border border-indigo-200 shadow-sm">
+                <h2 class="text-lg font-semibold text-indigo-800 mb-3 text-center">Business Planning Mode</h2>
             <div class="flex justify-center space-x-6">
                 <div class="flex items-center bg-white p-2 rounded-lg shadow-sm border border-indigo-100 transition-all hover:shadow-md">
                     <input id="modeMachines" name="calcMode" type="radio" value="machines" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
@@ -233,24 +288,8 @@
                      <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
                      <div id="displayProductionRate" class="mb-4 text-sm text-gray-600"></div>
 
-                     <!-- Tab Navigation -->
-                    <div class="mb-4 border-b border-gray-200">
-                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
-                            <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 border-indigo-600 text-indigo-600" id="financial-tab" data-tab="financial" type="button" role="tab">Financial Analysis</button>
-                            </li>
-                            <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="report-tab" data-tab="report" type="button" role="tab">Full Report</button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Report Tab Content -->
-                    <div id="report-content" class="hidden h-[800px] mb-4">
-                        <p>Report content will be displayed here.</p> </div>
-
-                    <!-- Financial Tab Content -->
-                    <div id="financial-content" class="mb-4">
+                     <!-- Performance Tab Content -->
+                    <div class="mb-4">
                          <h4 class="text-md font-semibold text-indigo-600 mb-2">Revenue Metrics</h4>
                          <div class="grid grid-cols-2 gap-4">
                              <div>
@@ -717,6 +756,40 @@
     </div>
 
     <script>
+        // --- Loading indicator for Google Doc iframe ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('google-doc-report');
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'iframe-loading';
+            loadingIndicator.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+                    <p class="mt-4 text-blue-600 font-medium">Loading Market Research Report...</p>
+                </div>
+            `;
+            loadingIndicator.className = 'absolute inset-0 bg-white flex items-center justify-center z-10';
+            
+            // Insert loading indicator
+            const iframeContainer = iframe.parentNode;
+            iframeContainer.style.position = 'relative';
+            iframeContainer.insertBefore(loadingIndicator, iframe);
+            
+            // Remove loading indicator when iframe is loaded
+            iframe.onload = function() {
+                const loader = document.getElementById('iframe-loading');
+                if (loader) {
+                    loader.classList.add('opacity-0');
+                    setTimeout(() => {
+                        loader.remove();
+                    }, 500);
+                }
+            };
+        });
+        
+        // --- Load Environment Variables ---
+        // This is optional if you want to load the Google Doc URL from .env
+        // For a static HTML file, we've hardcoded the URL directly in the iframe
+        
         // --- Tab Switching Logic ---
         document.querySelectorAll('[role="tab"]').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -733,13 +806,9 @@
                 // Hide all content
                 document.getElementById('financial-content').classList.add('hidden');
                 document.getElementById('report-content').classList.add('hidden');
-                document.getElementById('report-tab').classList.add('hidden');
 
                 // Show selected content
                 document.getElementById(`${tab.dataset.tab}-content`).classList.remove('hidden');
-                if (tab.dataset.tab === 'report') {
-                    document.getElementById('report-tab').classList.remove('hidden');
-                }
             });
         });
 
