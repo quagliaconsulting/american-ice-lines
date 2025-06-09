@@ -403,8 +403,8 @@ export default function BusinessCalculator() {
   // Auto-update partner parameters from financial calculator
   useEffect(() => {
     if (results.totalMonthlyRevenue && results.netProfitMargin) {
-      // Calculate Total Addressable Market (scale current market by 10x for potential)
-      const scaledMarket = state.targetMonthlyDemand * state.sellingPrice * 12 * 10;
+      // Calculate Total Addressable Market (scale current market by 20x for potential)
+      const scaledMarket = state.targetMonthlyDemand * state.sellingPrice * 12 * 20;
       
       // Calculate Average Customer Value (annual revenue per customer)
       const annualCustomerValue = state.avgCustomerDemand * state.sellingPrice * 12;
@@ -1862,7 +1862,7 @@ export default function BusinessCalculator() {
                       className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-700 cursor-not-allowed"
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Monthly demand × price × 12 months × 10x scale</p>
+                  <p className="text-xs text-gray-500 mt-1">Monthly demand × price × 12 months × 20x scale</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-2">Target Market Share (%)</label>

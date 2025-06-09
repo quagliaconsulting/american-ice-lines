@@ -1,8 +1,5 @@
-'use client';
-
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
-import { usePathname } from 'next/navigation';
 import './globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,23 +17,25 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
+export const metadata: Metadata = {
+  title: 'American Ice Lines | Premium Crystal Clear Ice',
+  description: 'Specialty ice products for businesses and homes. Beautiful, perfectly clear ice for the lowest cost with highest quality and reliability.',
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const isFundSite = pathname?.startsWith('/fund');
-
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body className="min-h-screen flex flex-col">
-        {!isFundSite && <Header />}
+        <Header />
         <main className="flex-grow">
           {children}
         </main>
-        {!isFundSite && <Footer />}
-        {!isFundSite && <Chatbot />}
+        <Footer />
+        <Chatbot />
       </body>
     </html>
   );
