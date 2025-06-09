@@ -13,14 +13,15 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd src && python3 -m http.server 5000 --bind 0.0.0.0"
+args = "cd ice-website && npm run dev"
 
 [[ports]]
 localPort = 5000
 externalPort = 80
 
 [deployment]
-deploymentTarget = "static"
-publicDir = "src"
+deploymentTarget = "cloudrun"
+build = ["sh", "-c", "cd ice-website && npm run build"]
+run = ["sh", "-c", "cd ice-website && npm run start"]
 
 
