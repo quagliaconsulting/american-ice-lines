@@ -1,0 +1,238 @@
+1. Modified HTML (Financial Summary & Key Metrics Section)
+
+I've updated the "Monthly Gross Profit" label and restructured the "Monthly Costs Breakdown" to show individual fixed cost components instead of lumping them together.
+
+HTML
+
+    <div class="mt-10 bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-6 rounded-lg shadow-md border border-indigo-200">
+         <h2 class="text-xl font-bold text-indigo-800 mb-6 text-center">Financial Summary & Key Metrics</h2>
+         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+             <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                 <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Revenue & Profit</h3>
+                 <div id="displayMachinesUsed" class="mb-1 text-sm text-indigo-700 font-medium"></div>
+                 <div id="displayProductionRate" class="mb-2 text-sm text-gray-600"></div>
+                 <div>
+                     <span class="output-label">Total Monthly Revenue</span>
+                     <p id="totalMonthlyRevenue" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Monthly Gross Profit (Rev - Var Costs)</span>
+                     <p id="monthlyGrossProfit" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Monthly Net Profit</span>
+                     <p id="monthlyNetProfit" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Annual Net Profit</span>
+                     <p id="annualNetProfit" class="output-value">$0.00</p>
+                 </div>
+             </div>
+
+             <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                 <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Monthly Costs Breakdown</h3>
+                 <div>
+                     <span class="output-label">Variable Costs (Energy, Water, Pack, Distribute)</span>
+                     <p id="totalMonthlyVariableCosts" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Labor Cost</span>
+                     <p id="totalMonthlyLaborCost" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Rent / Overhead</span>
+                     <p id="displayMonthlyRent" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Insurance</span>
+                     <p id="displayMonthlyInsurance" class="output-value">$0.00</p>
+                 </div>
+                  <div class="mt-2">
+                     <span class="output-label">Maintenance (Total)</span>
+                     <p id="displayMonthlyMaintenance" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2">
+                     <span class="output-label">Loan Payment</span>
+                     <p id="monthlyLoanPayment" class="output-value">$0.00</p>
+                 </div>
+                 <div class="mt-2 border-t pt-2">
+                     <span class="output-label font-bold">Total Monthly Costs</span>
+                     <p id="totalMonthlyCosts" class="output-value font-bold">$0.00</p>
+                 </div>
+             </div>
+
+            <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Key Metrics</h3>
+                <div>
+                    <span class="output-label">Variable Cost per Ice Unit</span>
+                    <p id="variableCostPerUnit" class="output-value">$0.00</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Total Cost per Ice Unit (Approx)</span>
+                    <p id="totalCostPerUnit" class="output-value">$0.00</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Net Profit Margin</span>
+                    <p id="netProfitMargin" class="output-value">0.00%</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Break-Even Units per Month</span>
+                    <p id="breakEvenUnits" class="output-value">0</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Break-Even Revenue per Month</span>
+                    <p id="breakEvenRevenue" class="output-value">$0.00</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                <h3 class="text-md font-semibold text-gray-700 mb-3 border-b pb-1">Investment & Return</h3>
+                <div>
+                    <span class="output-label">Total Equipment Cost</span>
+                    <p id="totalEquipmentCost" class="output-value">$0.00</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Initial Down Payment</span>
+                    <p id="initialDownPayment" class="output-value">$0.00</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Total Amount Financed</span>
+                    <p id="totalLoanAmount" class="output-value">$0.00</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Simple Payback Period (Years)</span>
+                    <p id="paybackPeriod" class="output-value">N/A</p>
+                </div>
+                <div class="mt-2">
+                    <span class="output-label">Annual ROI (on Equipment Cost)</span>
+                    <p id="annualROI" class="output-value">N/A</p>
+                </div>
+            </div>
+            </div>
+         <div class="mt-6 text-center text-sm text-gray-600">
+              <p><strong class="font-semibold text-indigo-700">Cash Flow Note:</strong> To stay cash flow positive early, ensure your revenue significantly exceeds the sum of Variable Costs, Labor, Fixed Costs (Rent, Ins, Maint), and the Monthly Loan Payment. See chart below for trends.</p>
+         </div>
+     </div>
+2. Modified JavaScript (calculateModel function)
+
+Here are the relevant parts of the function showing the changed Gross Profit calculation and the updates to the new HTML elements for individual fixed costs.
+
+JavaScript
+
+    // --- Main Calculation Function ---
+    function calculateModel() {
+        // ... (Keep all the input parsing variables from the original code) ...
+        const monthlyRent = parseFloat($('monthlyRent').value) || 0; // Already parsed
+        const monthlyInsurance = parseFloat($('monthlyInsurance').value) || 0; // Already parsed
+        const monthlyMaintenancePerMachine = parseFloat($('monthlyMaintenancePerMachine').value) || 0; // Already parsed
+
+        // ... (Keep calculations for cyclesPerDay, maxUnitsPerMachineDay, energy, water etc.) ...
+        // ... (Keep logic for selectedMode ('machines' or 'demand') to determine numMachines and totalMonthlyUnitProduction) ...
+
+        const energyCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyEnergyPerMachine * electricityRate) / maxUnitsPerMachineDay : 0;
+        const waterCostPerUnit = maxUnitsPerMachineDay > 0 ? (dailyWaterPerMachine * waterRate) / maxUnitsPerMachineDay : 0;
+        const distributionCostUnit = parseFloat($('distributionCostUnit').value) || 0;
+        const variableCostPerUnit = energyCostPerUnit + waterCostPerUnit + packagingCostUnit + distributionCostUnit;
+
+        const totalMonthlyRevenue = totalMonthlyUnitProduction * sellingPrice;
+        const totalMonthlyVariableCosts = variableCostPerUnit * totalMonthlyUnitProduction;
+        const totalMonthlyLaborCost = laborHoursPerDay * laborCostPerHour * daysOperating;
+        const totalMonthlyMaintenance = monthlyMaintenancePerMachine * numMachines; // Calculate total maintenance
+
+        // ## MODIFIED Gross Profit Calculation ##
+        // Original: const monthlyGrossProfit = totalMonthlyRevenue - totalMonthlyOperatingCosts;
+        const monthlyGrossProfit = totalMonthlyRevenue - totalMonthlyVariableCosts;
+
+        // Recalculate Operating Costs (excluding financing) for Net Profit calculation
+        const totalMonthlyFixedCosts_Chart = monthlyRent + monthlyInsurance + totalMonthlyMaintenance; // Rent + Ins + Maint
+        const totalMonthlyOperatingCosts = totalMonthlyVariableCosts + totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart;
+
+
+        // ... (Keep financing calculations: totalEquipmentCost, initialDownPayment, totalLoanAmount, monthlyInterestRate, loanTermMonths, monthlyLoanPayment) ...
+
+        const totalMonthlyCosts = totalMonthlyOperatingCosts + monthlyLoanPayment;
+
+        // ## Net Profit Calculation uses Operating Costs, Gross Profit is separate ##
+        // Net Profit = Revenue - Variable Costs - Labor - Fixed (Rent, Ins, Maint) - Loan Payment
+        // Which simplifies to: Revenue - totalMonthlyOperatingCosts - monthlyLoanPayment
+        const monthlyNetProfit = totalMonthlyRevenue - totalMonthlyOperatingCosts - monthlyLoanPayment;
+        // Alternatively using the modified Gross Profit:
+        // const monthlyNetProfit = monthlyGrossProfit - totalMonthlyLaborCost - totalMonthlyFixedCosts_Chart - monthlyLoanPayment;
+
+
+        const annualNetProfit = monthlyNetProfit * 12;
+
+        const totalCostPerUnit = totalMonthlyUnitProduction > 0 ? totalMonthlyCosts / totalMonthlyUnitProduction : 0;
+        const netProfitMargin = totalMonthlyRevenue > 0 ? monthlyNetProfit / totalMonthlyRevenue : 0;
+
+        // Break-even calculation needs *all* costs except variable
+        const profitPerUnitMargin = sellingPrice - variableCostPerUnit; // Contribution margin per unit
+        // Fixed costs for break-even = Labor + Rent + Insurance + Maintenance + Loan Payment
+        const totalMonthlyFixedForBreakEven = totalMonthlyLaborCost + totalMonthlyFixedCosts_Chart + monthlyLoanPayment;
+        const breakEvenUnits = profitPerUnitMargin > 0 ? totalMonthlyFixedForBreakEven / profitPerUnitMargin : Infinity;
+        const breakEvenRevenue = breakEvenUnits === Infinity ? Infinity : breakEvenUnits * sellingPrice;
+
+        // ... (Keep Customer Demand, Capacity Utilization, Payback, ROI calculations) ...
+
+        // --- Update Output Fields ---
+        $('totalMonthlyRevenue').textContent = formatCurrency(totalMonthlyRevenue);
+        $('monthlyGrossProfit').textContent = formatCurrency(monthlyGrossProfit); // Updated definition
+        const netProfitElement = $('monthlyNetProfit');
+        netProfitElement.textContent = formatCurrency(monthlyNetProfit);
+        netProfitElement.className = monthlyNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+        const annualNetProfitElement = $('annualNetProfit');
+        annualNetProfitElement.textContent = formatCurrency(annualNetProfit);
+        annualNetProfitElement.className = annualNetProfit >= 0 ? 'output-value output-value-profit' : 'output-value output-value-loss';
+
+        // Update Cost Breakdown section
+        $('totalMonthlyVariableCosts').textContent = formatCurrency(totalMonthlyVariableCosts);
+        $('totalMonthlyLaborCost').textContent = formatCurrency(totalMonthlyLaborCost);
+        // Removed: $('totalMonthlyFixedCosts').textContent = formatCurrency(totalMonthlyFixedCosts_Chart);
+        // ## ADDED Updates for individual fixed cost elements ##
+        $('displayMonthlyRent').textContent = formatCurrency(monthlyRent);
+        $('displayMonthlyInsurance').textContent = formatCurrency(monthlyInsurance);
+        $('displayMonthlyMaintenance').textContent = formatCurrency(totalMonthlyMaintenance);
+        // ## END ADDED Updates ##
+        $('monthlyLoanPayment').textContent = formatCurrency(monthlyLoanPayment);
+        $('totalMonthlyCosts').textContent = formatCurrency(totalMonthlyCosts); // Total remains the sum
+
+        // Update Key Metrics, Investment, Customer Demand sections
+        $('variableCostPerUnit').textContent = formatCurrency(variableCostPerUnit);
+        $('totalCostPerUnit').textContent = formatCurrency(totalCostPerUnit);
+        $('netProfitMargin').textContent = formatPercent(netProfitMargin);
+        $('breakEvenUnits').textContent = breakEvenUnits === Infinity ? 'N/A' : formatNumber(breakEvenUnits, 0);
+        $('breakEvenRevenue').textContent = breakEvenRevenue === Infinity ? 'N/A' : formatCurrency(breakEvenRevenue);
+        $('totalEquipmentCost').textContent = formatCurrency(totalEquipmentCost);
+        $('initialDownPayment').textContent = formatCurrency(initialDownPayment);
+        $('totalLoanAmount').textContent = formatCurrency(totalLoanAmount);
+        $('paybackPeriod').textContent = paybackPeriod === Infinity ? 'N/A (or negative profit)' : `${formatNumber(paybackPeriod, 2)} Years`;
+        $('annualROI').textContent = annualROI === Infinity ? 'N/A' : formatPercent(annualROI);
+        $('requiredCustomers').textContent = formatNumber(requiredCustomers, 0);
+        $('capacityUtilization').textContent = (capacityUtilization * 100).toFixed(1) + '%';
+
+        // --- Call Chart Update Function ---
+        // Pass the same data structure as before; the chart itself uses the components
+        updateNewCharts({
+            totalMonthlyUnitProduction,
+            sellingPrice,
+            variableCostPerUnit,
+            totalMonthlyLaborCost,
+            totalMonthlyFixedCosts: totalMonthlyFixedCosts_Chart, // Keep passing the sum for the doughnut chart segment
+            monthlyLoanPayment,
+            breakEvenRevenue,
+            totalMonthlyVariableCosts,
+            loanTermMonths,
+            targetMonthlyDemand,
+            avgCustomerDemand
+         });
+    }
+3. Observations / Things That Might Not Make Sense (or need consideration):
+
+Gross Profit Definition: Your change (Revenue - Variable Costs) is a valid financial metric, often called "Contribution Margin". The previous definition (Revenue - Variable Costs - Labor - Fixed Operating Costs [Rent, Ins, Maint]) is closer to a standard "Gross Profit" or "Operating Profit before Financing/Taxes". Neither is wrong, but it's crucial that the label accurately reflects the calculation, which the modified HTML now does ("Monthly Gross Profit (Rev - Var Costs)"). Be aware that someone looking at this might expect a different "Gross Profit" calculation if they are used to other definitions.
+Labor Costs: The model treats labor as a fixed monthly cost (laborHoursPerDay * laborCostPerHour * daysOperating). In reality, labor might scale somewhat with production volume or the number of machines (more harvesting, bagging, cleaning time per machine). If labor is more variable, the current "Variable Cost per Unit" and "Gross Profit (Rev - Var Costs)" would be slightly inaccurate. Treating it as fixed is a common simplification but worth noting.
+Loan Payment vs. Interest Expense: The model includes the full monthly loan payment (Principal + Interest) as a cost when calculating totalMonthlyCosts and monthlyNetProfit. From a pure accounting perspective, only the interest portion of the loan payment is an expense affecting profit on the Income Statement. The principal portion is a reduction of liability on the Balance Sheet. This model simplifies things by treating the full payment as reducing the monthly cash profit, which is useful for cash flow planning but overstates expenses and understates Net Profit from a strict accounting viewpoint. This also affects the accuracy of the Break-Even calculation.
+Break-Even Calculation: Following from point 3, the break-even calculation uses the full loan payment as part of the fixed costs to cover. This gives you the break-even point for cash flow (covering all cash outflows), not necessarily accounting profit break-even (which would only include interest). This is often what businesses practically want to know, but it's a distinction.
+Simple Payback & ROI: The model calculates Simple Payback Period and Annual ROI. These are useful quick metrics but don't account for the time value of money (i.e., a dollar earned today is worth more than a dollar earned next year). More complex analyses would use Net Present Value (NPV) or Internal Rate of Return (IRR).
+Maintenance: The input is monthlyMaintenancePerMachine. The model correctly calculates totalMonthlyMaintenance by multiplying this by numMachines. This makes sense – maintenance scales with the number of units.
+Capacity Utilization: This metric (capacityUtilization) compares actual production (totalMonthlyUnitProduction) to the maximum theoretical production based on the number of machines, cycle time, and operating days (maxMonthlyCapacity). In 'Demand' mode, if the target demand is less than the maximum capacity of the calculated machines, the utilization will be less than 100%. This seems correct and useful.
+These points aren't necessarily "wrong" for a planning model like this, but they are simplifications or specific definitions you should be aware of when interpreting the results. The changes you requested (modifying Gross Profit and breaking out fixed costs) have been implemented.
