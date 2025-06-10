@@ -108,10 +108,10 @@ const iceShapes: IceShape[] = [
 ];
 
 const partnerTiers: PartnerTier[] = [
-  { name: 'Founding', range: '1-5', baseProfit: 40, snowballRate: 2.0, color: '#FF6B6B' },
-  { name: 'Early', range: '6-15', baseProfit: 35, snowballRate: 1.5, color: '#4ECDC4' },
-  { name: 'Growth', range: '16-50', baseProfit: 30, snowballRate: 1.0, color: '#45B7D1' },
-  { name: 'Standard', range: '51+', baseProfit: 25, snowballRate: 0.5, color: '#96CEB4' },
+  { name: 'Founding', range: '1-5', baseProfit: 30, snowballRate: 2.0, color: '#FF6B6B' },
+  { name: 'Early', range: '6-15', baseProfit: 25, snowballRate: 1.5, color: '#4ECDC4' },
+  { name: 'Growth', range: '16-50', baseProfit: 20, snowballRate: 1.0, color: '#45B7D1' },
+  { name: 'Standard', range: '51+', baseProfit: 15, snowballRate: 0.5, color: '#96CEB4' },
 ];
 
 const initialPartnerState: PartnerState = {
@@ -122,10 +122,10 @@ const initialPartnerState: PartnerState = {
   marketPenetrationPerPartner: 2, // 2% market penetration per partner
   timelineMonths: 24, // 2 year timeline
   companyProfitPercent: 30, // Company keeps 30%
-  foundingPartnerPercent: 40, // Founding partners get 40% base
-  earlyPartnerPercent: 35, // Early partners get 35% base
-  growthPartnerPercent: 30, // Growth partners get 30% base
-  standardPartnerPercent: 25, // Standard partners get 25% base
+  foundingPartnerPercent: 30, // Founding partners get 30% base
+  earlyPartnerPercent: 25, // Early partners get 25% base
+  growthPartnerPercent: 20, // Growth partners get 20% base
+  standardPartnerPercent: 15, // Standard partners get 15% base
   snowballMultiplier: 0.5, // 0.5% additional for each new partner
 };
 
@@ -1792,7 +1792,7 @@ export default function BusinessCalculator() {
               </div>
               <div className="ml-3">
                 <p className="text-sm text-blue-800">
-                  <span className="font-medium">Smart Integration:</span> Market size, customer value, and profit margins are automatically calculated from your Financial Analysis tab data.
+                  <span className="font-medium">Data Integration:</span> Market calculations are automatically derived from your business parameters in the Financial Analysis tab.
                 </p>
               </div>
             </div>
@@ -1807,11 +1807,10 @@ export default function BusinessCalculator() {
                 </svg>
               </div>
               <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                Partner Profit Snowball Model
+                Partner Profit Distribution Model
               </h2>
               <p className="text-lg text-gray-600 max-w-4xl mx-auto">
-                Visualize how early partners benefit from the snowball effect as new partners join and market share grows. 
-                The earlier you join, the greater your long-term returns from network expansion.
+                Model how profit sharing works across different partner tiers, including the snowball effect that rewards early partners as the network expands.
               </p>
             </div>
           </div>
@@ -2088,7 +2087,7 @@ export default function BusinessCalculator() {
                     />
                   </div>
                   <div className="space-y-4">
-                    <h5 className="text-md font-semibold text-gray-600">The Cost of Waiting</h5>
+                    <h5 className="text-md font-semibold text-gray-600">Earnings by Partner Tier</h5>
                     {partnerProjections.length > 0 && (
                       <div className="space-y-3">
                         {[1, 6, 16, 51].map((partnerNum, index) => {
@@ -2111,13 +2110,13 @@ export default function BusinessCalculator() {
                         })}
                       </div>
                     )}
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <h6 className="font-semibold text-yellow-800 mb-2">Key Insight</h6>
-                      <p className="text-sm text-yellow-700">
-                        Founding partners can earn {partnerProjections.length > 0 ? 
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h6 className="font-semibold text-blue-800 mb-2">Model Insights</h6>
+                      <p className="text-sm text-blue-700">
+                        The snowball effect creates a {partnerProjections.length > 0 ? 
                           `${Math.round(((partnerProjections[partnerProjections.length - 1]?.cumulativePartnerProfit['partner_1'] || 1) / 
-                          (partnerProjections[partnerProjections.length - 1]?.cumulativePartnerProfit['partner_51'] || 1)) * 100)}%` : '300%'} 
-                        more than standard partners over the same period due to the snowball effect.
+                          (partnerProjections[partnerProjections.length - 1]?.cumulativePartnerProfit['partner_51'] || 1) - 1) * 100)}%` : '200%'} 
+                        earnings advantage for founding partners compared to standard partners over the projection period.
                       </p>
                     </div>
                   </div>
@@ -2126,15 +2125,20 @@ export default function BusinessCalculator() {
             </div>
           )}
 
-          {/* Export & Share */}
+          {/* Model Summary */}
           <div className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-lg p-6 text-center">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Share This Model</h4>
+            <h4 className="text-lg font-semibold text-gray-800 mb-4">Partnership Model Summary</h4>
             <p className="text-gray-600 mb-4">
-              Use this powerful visualization to demonstrate the exponential value of early partnership participation.
+              This model demonstrates how our tiered profit-sharing structure rewards partners based on their joining order and contribution to network growth.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200">
-              Export Partner Presentation
-            </button>
+            <div className="flex justify-center gap-4">
+              <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200">
+                Export Financial Model
+              </button>
+              <button className="bg-white hover:bg-gray-100 text-purple-600 border border-purple-300 font-semibold py-2 px-6 rounded-md transition-colors duration-200">
+                Print Summary
+              </button>
+            </div>
           </div>
         </div>
       )}

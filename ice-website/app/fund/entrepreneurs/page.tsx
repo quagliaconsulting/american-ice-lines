@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import FundNavigation from '../../../components/FundNavigation';
 import FundFooter from '../../../components/FundFooter';
 
@@ -79,8 +80,13 @@ export default function EntrepreneursPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-gray-100 h-96 rounded-lg flex items-center justify-center">
-              <span className="text-gray-500">Partnership Visual</span>
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+              <Image 
+                src="/images/partner_viz.png" 
+                alt="Partnership Visualization"
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
         </div>

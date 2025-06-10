@@ -28,7 +28,7 @@ export default function Hero({
           priority
           className="object-cover object-right-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
       </div>
       
       <div className="absolute top-0 right-0 w-full h-full pointer-events-none">
@@ -37,7 +37,7 @@ export default function Hero({
       </div>
       
       <div className="relative container-custom py-16 md:py-20 lg:py-24">
-        <div className="max-w-2xl">
+        <div className="max-w-xl lg:max-w-2xl">
           <span className="inline-block px-4 py-1.5 bg-ice-blue text-deep-blue font-semibold text-sm rounded-full mb-7">Premium Ice Delivery Service</span>
           <h1 className="heading-1 mb-7 leading-tight">{title}</h1>
           <p className="text-xl md:text-2xl text-gray-700 mb-8 font-light">

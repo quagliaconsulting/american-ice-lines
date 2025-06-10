@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
-  { name: 'Home', href: '/' },
   { name: 'Products', href: '/products' },
   { name: 'Business', href: '/business' },
   { name: 'Residential', href: '/residential' },
@@ -19,109 +18,141 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-custom sticky top-0 z-50">
-      <nav className="container-custom flex items-center justify-between py-3 md:py-4" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 transition duration-300 hover:opacity-80">
-            <span className="sr-only">American Ice Lines</span>
-            <div className="flex items-center">
-              <Image 
-                src="/images/logo.svg" 
-                alt="American Ice Lines logo"
-                width={44}
-                height={44}
-                className="h-11 w-auto"
-                priority
-              />
-              <span className="ml-3 text-xl font-display font-bold text-deep-blue">American Ice Lines</span>
-            </div>
-          </Link>
-        </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700 hover:bg-gray-50 transition-colors"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-base font-medium text-gray-700 hover:text-deep-blue transition-colors px-1 py-2"
-            >
-              {item.name}
+    <header className="bg-white sticky top-0 z-50 border-b border-gray-200">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Global">
+        <div className="flex h-20 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative flex-shrink-0">
+                <Image 
+                  src="/images/logo.svg" 
+                  alt="American Ice Lines"
+                  width={45}
+                  height={45}
+                  className="h-11 w-11 transition-transform group-hover:scale-110"
+                  priority
+                />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">American Ice Lines</h1>
+                <p className="text-xs text-gray-500 -mt-0.5">Premium Ice Delivery</p>
+              </div>
             </Link>
-          ))}
-        </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
-          <Link href="/order" className="btn-primary">
-            <span>Order Now</span>
-          </Link>
-          <Link href="/cart" className="flex items-center justify-center h-10 w-10 rounded-full text-gray-700 hover:text-deep-blue hover:bg-gray-50 transition-colors">
-            <ShoppingCartIcon className="h-6 w-6" />
-          </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex lg:items-center lg:space-x-8">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-sm font-medium text-gray-700 hover:text-gray-900 relative py-2 transition-colors"
+              >
+                {item.name}
+                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 transition-transform group-hover:scale-x-100" />
+              </Link>
+            ))}
+          </div>
+
+          {/* Right side actions */}
+          <div className="flex items-center space-x-4">
+            {/* Cart - Desktop */}
+            <Link 
+              href="/cart" 
+              className="hidden lg:flex relative p-2 text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <ShoppingCartIcon className="h-6 w-6" />
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center font-medium">
+                0
+              </span>
+            </Link>
+
+            {/* Order Now Button */}
+            <Link 
+              href="/order" 
+              className="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              Order Now
+            </Link>
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </nav>
       
       {/* Mobile menu */}
-      <div className={`lg:hidden ${mobileMenuOpen ? 'block' : 'hidden'} fixed inset-0 z-50`}>
-        <div className="fixed inset-0 bg-black/20" onClick={() => setMobileMenuOpen(false)} />
+      <div className={`lg:hidden ${mobileMenuOpen ? 'fixed inset-0 z-50' : 'hidden'}`}>
+        {/* Background overlay */}
+        <div 
+          className="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity" 
+          onClick={() => setMobileMenuOpen(false)} 
+        />
         
-        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-              <span className="sr-only">American Ice Lines</span>
-              <Image 
-                src="/images/logo.svg" 
-                alt="American Ice Lines logo"
-                width={40}
-                height={40}
-                className="h-8 w-auto"
-              />
-            </Link>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-1 py-6">
+        {/* Mobile menu panel */}
+        <div className="fixed inset-y-0 right-0 flex max-w-xs w-full">
+          <div className="relative flex w-full flex-col bg-white shadow-xl">
+            {/* Mobile menu header */}
+            <div className="flex items-center justify-between px-4 pt-5 pb-2">
+              <Link href="/" className="flex items-center space-x-3" onClick={() => setMobileMenuOpen(false)}>
+                <Image 
+                  src="/images/logo.svg" 
+                  alt="American Ice Lines"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10"
+                />
+                <span className="text-lg font-bold text-gray-900">American Ice Lines</span>
+              </Link>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+
+            {/* Mobile menu navigation */}
+            <div className="flex-1 overflow-y-auto px-4 py-6">
+              <div className="space-y-1">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-4 py-2.5 text-base font-medium text-gray-700 hover:bg-frost/50 transition-colors"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
               </div>
-              <div className="py-6 space-y-3">
+              
+              {/* Mobile menu actions */}
+              <div className="mt-8 space-y-4">
+                <Link
+                  href="/cart"
+                  className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <ShoppingCartIcon className="mr-2 h-5 w-5" />
+                  View Cart
+                </Link>
                 <Link
                   href="/order"
-                  className="btn-primary block w-full py-2.5"
+                  className="flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3 text-base font-medium text-white shadow-sm hover:from-blue-700 hover:to-blue-800"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Order Now
-                </Link>
-                <Link
-                  href="/cart"
-                  className="flex items-center gap-2 -mx-3 rounded-lg px-4 py-2.5 text-base font-medium text-gray-700 hover:bg-frost/50 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <ShoppingCartIcon className="h-6 w-6" />
-                  Cart
                 </Link>
               </div>
             </div>

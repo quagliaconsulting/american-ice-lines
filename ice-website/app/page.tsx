@@ -16,7 +16,7 @@ export default function Home() {
         subtitle="Premium specialty ice products for businesses and homes at the best prices"
         ctaText="Order Now"
         ctaLink="/order"
-        imageUrl="/images/hero-ice.jpg"
+        imageUrl="/images/ice-hero.jpg"
       />
       
       <section className="container-custom section-padding">
