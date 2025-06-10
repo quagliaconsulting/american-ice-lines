@@ -84,7 +84,7 @@ export default function FundLayout({
             </form>
 
             <div className="mt-6 text-center text-sm text-gray-500">
-              <p>Authorized partners only. Access codes are provided during onboarding.</p>
+              <p>Authorized partners only.</p>
             </div>
           </div>
         </div>

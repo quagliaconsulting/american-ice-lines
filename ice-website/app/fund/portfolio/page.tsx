@@ -40,7 +40,7 @@ export default function PortfolioPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Growing Our Portfolio</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're actively building our first investments in proven small businesses across fragmented markets. Our focus is on partnering with exceptional entrepreneurs who share our vision for growth and consolidation.
+              We're actively building our investment portfolio of food and beverage manufacturing & distribution companies. Our focus is on partnering with exceptional entrepreneurs who share our vision for growth.
             </p>
           </div>
 
@@ -54,7 +54,7 @@ export default function PortfolioPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Actively Sourcing</h3>
                 <p className="text-gray-700">
-                  We're systematically identifying proven businesses in fragmented markets through our network and direct outreach.
+                  We're systematically identifying proven businesses within our target portfolio market through our network and direct outreach.
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function PortfolioPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Value Creation</h3>
                 <p className="text-gray-700">
-                  Our proven framework for operational excellence and market consolidation is ready to deploy.
+                  We'll augment portfolio growth organically with investments in partnered businesses and initiatives agreed with the Founders.
                 </p>
               </div>
             </div>
@@ -96,51 +96,43 @@ export default function PortfolioPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Investment Profile</h2>
             <p className="text-xl text-gray-600">
-              The types of businesses we're seeking for our portfolio
+              Business focus areas and capabilities we're seeking for our portfolio
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Service Businesses</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Sales</h3>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Local service companies ready for regional expansion</span>
+                  <span>Wholesale customer network</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>HVAC, plumbing, electrical contractors</span>
+                  <span>Established customer accounts</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Landscaping and maintenance services</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span>Professional cleaning and restoration</span>
+                  <span>Consistent customer sell-through</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Distribution Companies</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Distribution</h3>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Regional distributors with consolidation opportunities</span>
+                  <span>Inventory management</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Food and beverage distribution</span>
+                  <span>Logistics planning and execution</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Industrial supply and equipment</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span>Building materials and supplies</span>
+                  <span>Product integrity</span>
                 </li>
               </ul>
             </div>
@@ -158,11 +150,11 @@ export default function PortfolioPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Industrial components and assemblies</span>
+                  <span>Custom fabrication packaging and labelling</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Custom fabrication and processing</span>
+                  <span>EHS quality and compliance</span>
                 </li>
               </ul>
             </div>
@@ -192,7 +184,7 @@ export default function PortfolioPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900">Revenue Range: &gt;$500k</h4>
-                    <p className="text-gray-600">Established businesses with proven market demand</p>
+                    <p className="text-gray-600">Established businesses with proven customer track record</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -203,7 +195,7 @@ export default function PortfolioPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900">Positive Cash Flow</h4>
-                    <p className="text-gray-600">Consistent profitability with growth trajectory</p>
+                    <p className="text-gray-600">Consistent profitability with growth opportunity to generate</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -230,8 +222,8 @@ export default function PortfolioPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900">Fragmented Market</h4>
-                    <p className="text-gray-600">Industries with consolidation opportunities</p>
+                    <h4 className="font-semibold text-slate-900">Targeted Market</h4>
+                    <p className="text-gray-600">Specialty food & beverage manufacturing & distribution wholesalers</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -241,8 +233,8 @@ export default function PortfolioPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900">Geographic Expansion</h4>
-                    <p className="text-gray-600">Clear path to territory growth</p>
+                    <h4 className="font-semibold text-slate-900">Geographic Presence</h4>
+                    <p className="text-gray-600">Proven in a market territory</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -288,7 +280,7 @@ export default function PortfolioPage() {
               </div>
               <h3 className="text-xl font-bold mb-3">Optimization</h3>
               <p className="text-gray-300">
-                Implement best practices and operational efficiencies across the business
+                Implement best practices and operational efficiencies across the business portfolio
               </p>
             </div>
             <div className="text-center">
@@ -304,38 +296,15 @@ export default function PortfolioPage() {
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold">4</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Exit</h3>
+              <h3 className="text-xl font-bold mb-3">Exit Value Realization</h3>
               <p className="text-gray-300">
-                Strategic exit to private equity with shared proceeds for all founders
+                Execute within investment horizon to maximize value and assess exit opportunities
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Join Our Portfolio?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            If you've built a successful business and are interested in partnering for growth, we'd love to explore opportunities together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/fund/entrepreneurs" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              Partnership Opportunities
-            </Link>
-            <Link 
-              href="/fund/contact" 
-              className="border border-white hover:bg-white hover:text-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              Schedule a Call
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <FundFooter />
     </div>

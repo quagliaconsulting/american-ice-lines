@@ -230,11 +230,11 @@ export default function EntrepreneursPage() {
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Consistent profitability and growth</span>
+                  <span>Consistent profitability with growth or opportunity to generate</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Strong market position in fragmented industry</span>
+                  <span>Current player in targeted industry</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
@@ -242,7 +242,7 @@ export default function EntrepreneursPage() {
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Clear opportunities for geographic expansion</span>
+                  <span>Established presence in a geographic market territory</span>
                 </div>
               </div>
             </div>
@@ -330,107 +330,6 @@ export default function EntrepreneursPage() {
         </div>
       </section>
 
-      {/* Testimonials / Case Studies */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Partnership Success Stories</h2>
-            <p className="text-xl text-gray-600">
-              What successful partnerships look like in practice
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-200">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Building Our First Success Stories</h3>
-              <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
-                We're actively seeking our first partnership opportunities with exceptional entrepreneurs. Your business could be the foundation of our portfolio success stories.
-              </p>
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">Partnership</div>
-                  <p className="text-gray-600">Maintain control while accessing growth capital and strategic support</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">Growth</div>
-                  <p className="text-gray-600">Scale your successful model across new territories and markets</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">Exit</div>
-                  <p className="text-gray-600">Share in significant value creation through strategic exit</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600">
-              Common questions from business owners considering partnership
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Will I still control my business?</h3>
-                <p className="text-gray-600">Yes. Our partnership structures are designed to let you maintain operational control while we provide strategic support and resources for growth.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">How do you determine partnership terms?</h3>
-                <p className="text-gray-600">Terms are customized based on your business, growth objectives, and personal goals. We focus on creating win-win structures that align our interests.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">What level of involvement do you have?</h3>
-                <p className="text-gray-600">We're strategic partners, not micromanagers. We provide guidance, resources, and support while respecting your expertise and leadership.</p>
-              </div>
-            </div>
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">What's the typical timeline for partnership?</h3>
-                <p className="text-gray-600">Our partnerships are structured for 5-7 year value creation cycles, building sustainable growth before strategic exit opportunities.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Do you work with competitors?</h3>
-                <p className="text-gray-600">We may partner with companies in similar industries, but we focus on creating synergies and turning competition into collaboration.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">What happens during the exit?</h3>
-                <p className="text-gray-600">All partners, including original founders, participate in exit proceeds based on their contributions and partnership agreements.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Explore a Partnership?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Let's have a conversation about how we can grow together. No commitments, just an opportunity to explore whether we're a good fit for partnership.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/fund/contact" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              Schedule a Call
-            </Link>
-            <Link 
-              href="/fund/strategy" 
-              className="border border-white hover:bg-white hover:text-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              Learn Our Strategy
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <FundFooter />
     </div>

@@ -32,7 +32,7 @@ export default function FundHomepage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-gray-300 leading-relaxed">
-              We invest in proven small businesses, partnering with founders to realize growth through consolidation synergies and operational excellence. Together, we turn competitors into collaborators.
+              We invest in proven small businesses, partnering with founders to realize growth through synergies and operational excellence. Together, we turn competitors into collaborators.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
@@ -261,7 +261,7 @@ export default function FundHomepage() {
                 <div className="mt-8 text-center">
                   <h3 className="text-xl font-bold text-slate-900 mb-3">Investment Focus Areas</h3>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Service Businesses</span>
+                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Sales</span>
                     <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Distribution</span>
                     <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Manufacturing</span>
                   </div>
@@ -305,8 +305,8 @@ export default function FundHomepage() {
                 <div className="absolute inset-0 bg-blue-400 rounded-full mx-auto w-28 h-28 opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
               </div>
               <h3 className="font-bold text-lg mb-1 group-hover:text-blue-300 transition-colors">Matt Allgeier</h3>
-              <p className="text-gray-400 text-sm">Chief Executive Officer</p>
-              <p className="text-xs text-gray-500 mt-2">EY-Parthenon Senior Director</p>
+              <p className="text-gray-400 text-sm">Operating Partner</p>
+              <p className="text-xs text-gray-500 mt-2">Portfolio Strategy & Execution</p>
             </div>
             <div className="text-center group">
               <div className="relative mb-6">
@@ -322,8 +322,8 @@ export default function FundHomepage() {
                 <div className="absolute inset-0 bg-green-400 rounded-full mx-auto w-28 h-28 opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
               </div>
               <h3 className="font-bold text-lg mb-1 group-hover:text-green-300 transition-colors">James Quaglia</h3>
-              <p className="text-gray-400 text-sm">Chief Technology Officer</p>
-              <p className="text-xs text-gray-500 mt-2">10+ Years AI Experience</p>
+              <p className="text-gray-400 text-sm">Operating Partner</p>
+              <p className="text-xs text-gray-500 mt-2">Technology Solutions</p>
             </div>
             <div className="text-center group">
               <div className="relative mb-6">
@@ -339,8 +339,8 @@ export default function FundHomepage() {
                 <div className="absolute inset-0 bg-purple-400 rounded-full mx-auto w-28 h-28 opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
               </div>
               <h3 className="font-bold text-lg mb-1 group-hover:text-purple-300 transition-colors">Jonathon Bauman</h3>
-              <p className="text-gray-400 text-sm">Chief Operating Officer</p>
-              <p className="text-xs text-gray-500 mt-2">8+ Years Account Management</p>
+              <p className="text-gray-400 text-sm">Operating Partner</p>
+              <p className="text-xs text-gray-500 mt-2">Human Capital</p>
             </div>
             <div className="text-center group">
               <div className="relative mb-6">
@@ -356,8 +356,8 @@ export default function FundHomepage() {
                 <div className="absolute inset-0 bg-orange-400 rounded-full mx-auto w-28 h-28 opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
               </div>
               <h3 className="font-bold text-lg mb-1 group-hover:text-orange-300 transition-colors">Patrick Ritschel</h3>
-              <p className="text-gray-400 text-sm">Chief Sales Officer</p>
-              <p className="text-xs text-gray-500 mt-2">30+ Years Automotive</p>
+              <p className="text-gray-400 text-sm">Operating Partner</p>
+              <p className="text-xs text-gray-500 mt-2">Sales Operations</p>
             </div>
             <div className="text-center group">
               <div className="relative mb-6">
@@ -373,8 +373,8 @@ export default function FundHomepage() {
                 <div className="absolute inset-0 bg-teal-400 rounded-full mx-auto w-28 h-28 opacity-20 group-hover:opacity-40 transition-opacity blur-xl"></div>
               </div>
               <h3 className="font-bold text-lg mb-1 group-hover:text-teal-300 transition-colors">Cole Borland</h3>
-              <p className="text-gray-400 text-sm">Chief Product Officer</p>
-              <p className="text-xs text-gray-500 mt-2">National Account Manager</p>
+              <p className="text-gray-400 text-sm">Operating Partner</p>
+              <p className="text-xs text-gray-500 mt-2">Distribution, P&L Operations</p>
             </div>
           </div>
           
