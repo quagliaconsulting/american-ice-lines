@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>American Ice Lines Logo</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle fill="#0047AB" cx="20" cy="20" r="20"/>
+        <path d="M12,10 L28,10 C29.1045695,10 30,10.8954305 30,12 L30,28 C30,29.1045695 29.1045695,30 28,30 L12,30 C10.8954305,30 10,29.1045695 10,28 L10,12 C10,10.8954305 10.8954305,10 12,10 Z" fill="#FFFFFF" opacity="0.6"/>
+        <path d="M14,14 L26,14 C26.5522847,14 27,14.4477153 27,15 L27,25 C27,25.5522847 26.5522847,26 26,26 L14,26 C13.4477153,26 13,25.5522847 13,25 L13,15 C13,14.4477153 13.4477153,14 14,14 Z" fill="#FFFFFF"/>
+        <rect fill="#0047AB" x="17" y="17" width="6" height="6" rx="1"/>
+    </g>
+</svg>
