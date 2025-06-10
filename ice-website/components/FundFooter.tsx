@@ -8,7 +8,7 @@ export default function FundFooter() {
           <div>
             <h3 className="text-white font-semibold mb-4">American Apex Search Fund</h3>
             <p className="text-sm mb-4">
-              Consolidating fragmented markets through strategic partnerships and operational excellence.
+              Synergizing targeted markets through strategic partnerships and operational excellence.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -35,19 +35,12 @@ export default function FundFooter() {
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/fund/team" className="hover:text-white transition-colors">Team</Link></li>
-              <li><Link href="/fund/contact" className="hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-4">Other Businesses</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/" className="hover:text-white transition-colors">Ice Delivery Service</Link></li>
-            </ul>
-            <div className="mt-6">
-              <h4 className="text-white font-semibold mb-2">Contact Info</h4>
-              <p className="text-sm">info@americanapexfund.com</p>
-              <p className="text-sm">(555) 123-4567</p>
-            </div>
+            <h4 className="text-white font-semibold mb-2">Contact Info</h4>
+            <p className="text-sm">info@americanapexfund.com</p>
+            <p className="text-sm">(555) 123-4567</p>
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">

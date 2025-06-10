@@ -28,7 +28,7 @@ export default function StrategyPage() {
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              Consolidating fragmented markets through strategic partnerships and operational excellence
+              Synergizing targeted markets through strategic partnerships and operational excellence
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function StrategyPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Investment Thesis</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              We believe the greatest value creation opportunities exist in fragmented markets where proven small businesses can be consolidated through strategic partnerships, shared best practices, and operational synergies.
+              We believe the greatest value creation opportunities exist in markets where proven small businesses can combine forces through strategic partnerships, shared best practices, and operational synergies.
             </p>
           </div>
 
@@ -63,9 +63,9 @@ export default function StrategyPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Market Consolidation</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Market Capture</h3>
               <p className="text-gray-600">
-                We focus on fragmented industries where multiple players operate in similar markets, creating opportunities to consolidate market share and eliminate inefficiencies through scale.
+                We focus on fragmented industries where multiple players operate in similar markets, creating opportunities to scale market share with a combined distribution network.
               </p>
             </div>
 
@@ -77,7 +77,7 @@ export default function StrategyPage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Operational Synergies</h3>
               <p className="text-gray-600">
-                By connecting portfolio companies, we create revenue synergies through cross-selling, cost savings through shared resources, and growth acceleration through best practice sharing.
+                By connecting portfolio companies, we create revenue synergies through cross-selling distribution channels, cost savings through operational efficiencies, and growth acceleration through best practice sharing.
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function StrategyPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Investment Criteria</h2>
             <p className="text-xl text-gray-600">
-              We seek specific types of businesses that fit our consolidation strategy
+              We seek specific types of businesses that fit our portfolio strategy
             </p>
           </div>
 
@@ -110,7 +110,7 @@ export default function StrategyPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Profitability</h3>
               <p className="text-3xl font-bold text-blue-600 mb-2">Positive</p>
-              <p className="text-gray-600">Consistent profitability with clear path to improved margins through scale and optimization</p>
+              <p className="text-gray-600">Consistent profitability or clear path to profitability through scale and optimization</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -178,7 +178,7 @@ export default function StrategyPage() {
                   <div>
                     <h3 className="text-2xl font-bold text-slate-900 mb-3">Strategic Exit</h3>
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      After 5-7 years of building scale and market position, we execute a strategic exit to private equity, sharing proceeds with all portfolio company founders.
+                      After 5-7 years of building scale and market position, we aim for an investment exit that realizes a return for the fund and founders.
                     </p>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ export default function StrategyPage() {
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Cross-selling opportunities between portfolio companies</span>
+                  <span>Cross-selling opportunities between portfolio companies across sales network</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
@@ -216,7 +216,7 @@ export default function StrategyPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Enhanced customer relationships through broader solutions</span>
+                  <span>Enhanced customer relationships through connected technology solutions</span>
                 </li>
               </ul>
             </div>
@@ -246,29 +246,6 @@ export default function StrategyPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Explore Partnership Opportunities?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            If you're a business owner in a fragmented market or interested in learning more about our investment approach, let's start a conversation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/fund/entrepreneurs" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              I'm a Business Owner
-            </Link>
-            <Link 
-              href="/fund/contact" 
-              className="border border-white hover:bg-white hover:text-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              General Inquiry
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <FundFooter />
     </div>

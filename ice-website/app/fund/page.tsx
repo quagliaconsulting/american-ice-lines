@@ -26,13 +26,13 @@ export default function FundHomepage() {
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Consolidating
+              Synergizing
               <span className="block bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
                 Fragmented Markets
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-gray-300 leading-relaxed">
-              We invest in proven small businesses, partnering with founders to realize growth through market consolidation and operational synergies. Together, we turn competitors into collaborators.
+              We invest in proven small businesses, partnering with founders to realize growth through consolidation synergies and operational excellence. Together, we turn competitors into collaborators.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
@@ -64,7 +64,7 @@ export default function FundHomepage() {
             <div className="text-center group">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 lg:p-8 group-hover:shadow-lg transition-shadow duration-300 h-full flex flex-col justify-center">
                 <div className="text-3xl lg:text-5xl font-bold text-blue-600 mb-3">5</div>
-                <div className="text-gray-700 font-medium text-sm lg:text-base leading-tight">Experienced Founders</div>
+                <div className="text-gray-700 font-medium text-sm lg:text-base leading-tight">Experienced Operating Partners</div>
               </div>
             </div>
             <div className="text-center group">
@@ -76,7 +76,7 @@ export default function FundHomepage() {
             <div className="text-center group">
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 lg:p-8 group-hover:shadow-lg transition-shadow duration-300 h-full flex flex-col justify-center">
                 <div className="text-3xl lg:text-5xl font-bold text-purple-600 mb-3">&gt;$500k</div>
-                <div className="text-gray-700 font-medium text-sm lg:text-base leading-tight">Revenue Range</div>
+                <div className="text-gray-700 font-medium text-sm lg:text-base leading-tight">Portfolio Co. Revenue Min.</div>
               </div>
             </div>
             <div className="text-center group">
@@ -100,7 +100,7 @@ export default function FundHomepage() {
               Why Partner With American Apex Search Fund?
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              We're an investor group of like-minded self-starters with experience in revenue growth, operations, and transactions. We look for the right opportunities that together fuel growth and optimize operations.
+              We're an investor group of like-minded self-starters with experience in revenue growth, operations, and deal transactions. We look for the right opportunities that together fuel growth and optimize operations.
             </p>
           </div>
 
@@ -131,8 +131,8 @@ export default function FundHomepage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-purple-600 transition-colors">Market Consolidation Expertise</h3>
-              <p className="text-gray-600 leading-relaxed">Connecting players in fragmented industries to consolidate market share and create sustainable competitive advantages.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-purple-600 transition-colors">Market Capture Expertise</h3>
+              <p className="text-gray-600 leading-relaxed">Connecting players in fragmented industries to capture market share and create sustainable competitive advantages.</p>
             </div>
             
             <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
@@ -161,8 +161,8 @@ export default function FundHomepage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">PE Exit Timeline</h3>
-              <p className="text-gray-600 leading-relaxed">Clear 5-7 year path to consolidate markets and exit to private equity, sharing proceeds with portfolio founders.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">Value Realization</h3>
+              <p className="text-gray-600 leading-relaxed">Clear 5-7 year investment horizon to maximize value and assess exit opportunities, sharing proceeds with portfolio founders.</p>
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function FundHomepage() {
               </span>
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">Our Investment Approach</h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                We focus on consolidating fragmented markets by partnering with proven small businesses. Our approach emphasizes revenue and operating synergies while sharing upside with founders.
+                We focus on synergizing targeted markets by partnering with founders of proven small businesses. Our approach emphasizes revenue and operating synergies while sharing upside with founders.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start group">
@@ -286,7 +286,7 @@ export default function FundHomepage() {
             </span>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">Meet Our Team</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Experienced operators and strategists committed to building lasting value through partnership and market consolidation.
+              Experienced operators and strategists committed to building lasting value through partnership and market capture.
             </p>
           </div>
           
@@ -392,62 +392,6 @@ export default function FundHomepage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 right-10 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10 animate-pulse"></div>
-          <div className="absolute bottom-10 left-10 w-64 h-64 bg-purple-300 rounded-full mix-blend-overlay filter blur-3xl opacity-10 animate-pulse animation-delay-2000"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-white/20 text-blue-100 rounded-full text-sm font-semibold mb-6 backdrop-blur-sm">
-              Start Your Partnership Journey
-            </span>
-            <h2 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">Ready to Explore a Partnership?</h2>
-            <p className="text-xl lg:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-blue-100">
-              Whether you're a business owner looking to grow or an investor interested in our approach, we'd love to hear from you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link 
-                href="/fund/entrepreneurs" 
-                className="group bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-2xl inline-flex items-center"
-              >
-                <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                I'm a Business Owner
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-              <Link 
-                href="/fund/contact" 
-                className="group border-2 border-white/50 hover:border-white hover:bg-white hover:text-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 backdrop-blur-sm inline-flex items-center"
-              >
-                <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                General Inquiry
-              </Link>
-            </div>
-            <div className="mt-12 grid grid-cols-3 gap-8 lg:gap-16 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold mb-2">24hrs</div>
-                <div className="text-blue-200 text-sm">Response Time</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold mb-2">No Fee</div>
-                <div className="text-blue-200 text-sm">Initial Consultation</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold mb-2">100%</div>
-                <div className="text-blue-200 text-sm">Confidential</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <FundFooter />
     </div>

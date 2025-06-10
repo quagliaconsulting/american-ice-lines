@@ -14,7 +14,6 @@ export default function FundNavigation() {
     { href: '/fund/team', label: 'Team' },
     { href: '/fund/portfolio', label: 'Portfolio' },
     { href: '/fund/entrepreneurs', label: 'For Entrepreneurs' },
-    { href: '/fund/contact', label: 'Contact' },
   ];
 
   return (
