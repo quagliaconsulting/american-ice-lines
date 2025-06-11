@@ -77,7 +77,7 @@ export default function StrategyPage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Operational Synergies</h3>
               <p className="text-gray-600">
-                By connecting portfolio companies, we create revenue synergies through cross-selling distribution channels, cost savings through operational efficiencies, and growth acceleration through best practice sharing.
+                By connecting portfolio companies, we create revenue synergies through distribution channels, cost savings through operational efficiencies, and growth acceleration through best practice sharing.
               </p>
             </div>
           </div>

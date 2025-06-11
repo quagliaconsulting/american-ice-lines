@@ -26,7 +26,7 @@ export default function TeamPage() {
       role: "Operating Partner - Human Capital",
       image: "/images/jon.jpeg",
       bio: "Extensive human capital experience, recruiting and managing talent across the organization with 8+ years at Tier-1 recruiting firm. Jon specializes in IT and Operations talent sourcing and brings operational excellence to people management.",
-      education: "Bachelor's Degree in Psychology from Michigan State University"
+      education: "Bachelor's Degree from Michigan State University"
     },
     {
       name: "Patrick Ritschel",
@@ -40,7 +40,7 @@ export default function TeamPage() {
       role: "Operating Partner - Distribution, P&L Operations",
       image: "/images/bradley.jpeg",
       bio: "Distribution & logistics expert with 10+ years at leading US CPG product manufacturers. Cole has managed and scaled accounts of all sizes with P&L ownership overseeing the product category and route-to-market life cycles.",
-      education: "Bachelor of Arts in Psychology from Michigan State University and Westminster College"
+      education: "Bachelor's degree from Michigan State University and Westminster College"
     }
   ];
 
@@ -77,6 +77,10 @@ export default function TeamPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Founding Operating Partners</h2>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              Five experienced leaders with complementary expertise in Deal Strategy & Execution, Technology, Human Capital, Sales Ops, and Distribution
+            </p>
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Founding Partners</h2>
             <p className="text-xl text-gray-600">
               Five experienced leaders with complementary expertise in strategy, technology, operations, sales, and product development

@@ -142,15 +142,11 @@ export default function PortfolioPage() {
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Niche manufacturers with expansion potential</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
                   <span>Specialty food and beverage production</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
-                  <span>Custom fabrication packaging and labelling</span>
+                  <span>Custom packaging and labelling</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-blue-600 mr-2">•</span>
@@ -195,7 +191,7 @@ export default function PortfolioPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900">Positive Cash Flow</h4>
-                    <p className="text-gray-600">Consistent profitability with growth opportunity to generate</p>
+                    <p className="text-gray-600">Consistent profitability or with growth opportunity to generate</p>
                   </div>
                 </div>
                 <div className="flex items-start">

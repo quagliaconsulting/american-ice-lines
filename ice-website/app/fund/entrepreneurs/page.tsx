@@ -31,15 +31,6 @@ export default function EntrepreneursPage() {
             <p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
               We believe the best deals are partnerships, not acquisitions. Keep doing what you do best while we help you grow, scale, and create lasting value together.
             </p>
-            <Link 
-              href="/fund/contact" 
-              className="group bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center"
-            >
-              Start a Conversation
-              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
@@ -230,7 +221,7 @@ export default function EntrepreneursPage() {
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Consistent profitability with growth or opportunity to generate</span>
+                  <span>Consistent profitability or with growth opportunity to generate</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
@@ -238,7 +229,7 @@ export default function EntrepreneursPage() {
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>Established customer base and reputation</span>
+                  <span>Consistent customer base and reputation</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
