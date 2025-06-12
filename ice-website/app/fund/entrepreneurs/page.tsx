@@ -221,7 +221,7 @@ export default function EntrepreneursPage() {
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
-                  <span>With growth opportunity to generate positive cash flow</span>
+                  <span>Consistent profitability or opportunity to generate positive cash flow</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-blue-400 mr-3 mt-1">▶</span>
