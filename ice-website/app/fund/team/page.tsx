@@ -77,7 +77,7 @@ export default function TeamPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Founding Operating Partners</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Operating Partners</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Five experienced leaders with complementary expertise in Deal Strategy & Execution, Technology, Human Capital, Sales Ops, and Distribution
             </p>
