@@ -292,7 +292,7 @@ export default function PortfolioPage() {
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold">4</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Exit Value Realization</h3>
+              <h3 className="text-xl font-bold mb-3">Value Realization</h3>
               <p className="text-gray-300">
                 Execute within investment horizon to maximize value and assess exit opportunities
               </p>
