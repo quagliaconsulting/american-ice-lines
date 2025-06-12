@@ -81,10 +81,6 @@ export default function TeamPage() {
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Five experienced leaders with complementary expertise in Deal Strategy & Execution, Technology, Human Capital, Sales Ops, and Distribution
             </p>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Founding Partners</h2>
-            <p className="text-xl text-gray-600">
-              Five experienced leaders with complementary expertise in strategy, technology, operations, sales, and product development
-            </p>
           </div>
 
           <div className="space-y-16">

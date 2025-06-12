@@ -191,7 +191,7 @@ export default function PortfolioPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900">Positive Cash Flow</h4>
-                    <p className="text-gray-600">Consistent profitability or with growth opportunity to generate</p>
+                    <p className="text-gray-600">Consistent profitability or with growth opportunity to generate positive cash flow</p>
                   </div>
                 </div>
                 <div className="flex items-start">
